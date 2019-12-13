@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>layuiAdmin 控制台主页一</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">媒体</div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                                <div carousel-item>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/8.png ' %}" />
+                                                <cite>今日头条</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/3.png ' %}" />
+                                                <cite>腾讯新闻</cite>
+                                        </li><li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/12.png ' %}" />
+                                                <cite>看点快报</cite>
+
+                                        </li><li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/1.png ' %}" />
+                                                <cite>UC头条</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            <a class="active">
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/11.png ' %}" />
+                                                <cite>趣头条</cite>
+                                            </a>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/2.png ' %}" />
+                                                <cite>网易新闻</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/16.png ' %}" />
+                                                <cite>搜狐新闻</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/10.png ' %}" />
+                                                <cite>凤凰新闻</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/15.png ' %}" />
+                                                <cite>新浪新闻</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/65.png ' %}" />
+                                                <cite>引力资讯</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/25.png ' %}" />
+                                                <cite>一点资讯</cite>
+
+										</li>
+
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/48.png ' %}" />
+                                                <cite>今日要看</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/48.png ' %}" />
+                                                <cite>zaker</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/27.png ' %}" />
+                                                <cite>界面新闻</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/41.png ' %}" />
+                                                <cite>东方头条</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/44.png ' %}" />
+                                                <cite>悦头条</cite>
+
+										</li><li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/39.png ' %}" />
+                                                <cite>好奇心日报</cite>
+
+										</li>
+
+                                        <li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/21.png ' %}" />
+                                                <cite>虎扑</cite>
+
+                                        </li><li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/20.png ' %}" />
+                                                <cite>懂球帝</cite>
+
+                                        </li><li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/63.png ' %}" />
+                                                <cite>唔哩头条</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/74.png ' %}" />
+                                                <cite>段友</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/73.png ' %}" />
+                                                <cite>最右</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/56.png ' %}" />
+                                                <cite>糗事百科</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/14.png ' %}" />
+                                                <cite>新浪财经</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/17.png ' %}" />
+                                                <cite>新浪体育</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/29.png ' %}" />
+                                                <cite>汽车之家</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/45.png ' %}" />
+                                                <cite>IT之家</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/42.png ' %}" />
+                                                <cite>中关村在线</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/57.png ' %}" />
+                                                <cite>米尔军事</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/32.png ' %}" />
+                                                <cite>抖音</cite>
+
+                                        </li>
+                                    </ul>
+
+									<ul class="layui-row layui-col-space10">
+
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/13.png ' %}" />
+                                                <cite>西瓜视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/60.png ' %}" />
+                                                <cite>火山小视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/62.png ' %}" />
+                                                <cite>快手</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/78.png ' %}" />
+                                                <cite>皮皮搞笑</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/59.png ' %}" />
+                                                <cite>好看视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/37.png ' %}" />
+                                                <cite>球球视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/61.png ' %}" />
+                                                <cite>爱看</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/47.png ' %}" />
+                                                <cite>波波视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/26.png ' %}" />
+                                                <cite>PP视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/77.png ' %}" />
+                                                <cite>皮皮虾</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/4.png ' %}" />
+                                                <cite>腾讯视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/6.png ' %}" />
+                                                <cite>爱奇艺视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/36.png ' %}" />
+                                                <cite>百度视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/7.png ' %}" />
+                                                <cite>优酷视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/40.png ' %}" />
+                                                <cite>搜狐视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/34.png ' %}" />
+                                                <cite>bilibili</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/35.png ' %}" />
+                                                <cite>土豆视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/22.png ' %}" />
+                                                <cite>凤凰视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/38.png ' %}" />
+                                                <cite>风行视频</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/51.png ' %}" />
+                                                <cite>咪咕影院</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/69.png ' %}" />
+                                                <cite>今日影视大全</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/19.png ' %}" />
+                                                <cite>乐视视频</cite>
+
+                                        </li>
+
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/54.png ' %}" />
+                                                <cite>QQ浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/31.png ' %}" />
+                                                <cite>百度浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/58.png ' %}" />
+                                                <cite>UC浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/46.png ' %}" />
+                                                <cite>360浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/18.png ' %}" />
+                                                <cite>搜狗浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/43.png ' %}" />
+                                                <cite>遨游浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/23.png ' %}" />
+                                                <cite>猎豹浏览器</cite>
+
+                                        </li>
+										<li class="layui-col-xs3">
+                                            
+                                                <img style="width:30px;height:30px;" src="{% static 'icon/5.png ' %}" />
+                                                <cite>百度</cite>
+
+                                        </li>
+                                    </ul>
+
+									<ul class="layui-row layui-col-space10">
+										<li class="layui-col-xs3">
+												
+													<img style="width:30px;height:30px;" src="{% static 'icon/30.png ' %}" />
+													<cite>搜狗搜索</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+												
+													<img style="width:30px;height:30px;" src="{% static 'icon/85.png ' %}" />
+													<cite>腾讯QQ</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+												
+													<img style="width:30px;height:30px;" src="{% static 'icon/71.png ' %}" />
+													<cite>QQ空间</cite>
+
+										</li>
+
+										<li class="layui-col-xs3">
+												
+													<img style="width:30px;height:30px;" src="{% static 'icon/53.png ' %}" />
+													<cite>微信-朋友圈</cite>
+
+										</li>
+
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/81.png ' %}" />
+												<cite>微信-公众号</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/82.png ' %}" />
+												<cite>微信-小程序</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/55.png ' %}" />
+												<cite>百度贴吧</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/76.png ' %}" />
+												<cite>知乎</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/50.png ' %}" />
+												<cite>豆瓣</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/52.png ' %}" />
+												<cite>新浪微博</cite>
+
+										</li>
+
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/24.png ' %}" />
+												<cite>墨迹天气</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/9.png ' %}" />
+												<cite>WiFi万能钥匙</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/29.png ' %}" />
+												<cite>hao123</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/66.png ' %}" />
+												<cite>中央天气预报</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/70.png ' %}" />
+												<cite>中华万年历</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/72.png ' %}" />
+												<cite>猎豹清理大师</cite>
+
+										</li>
+
+
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/67.png ' %}" />
+												<cite>vivo浏览器</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/68.png ' %}" />
+												<cite>小米浏览器</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/75.png ' %}" />
+												<cite>华为浏览器</cite>
+
+										</li>
+
+
+
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/83.png ' %}" />
+												<cite>斗鱼</cite>
+
+										</li>
+										<li class="layui-col-xs3">
+											
+												<img style="width:30px;height:30px;" src="{% static 'icon/84.png ' %}" /> 
+												<cite>TapTap</cite>
+
+									
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">数据概览</div>
+                        <div class="layui-card-body">
+
+                            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade"
+                                 lay-filter="LAY-index-dataview">
+                                <div carousel-item id="LAY-index-dataview">
+                                    <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="layui-card">
+                        <div class="layui-card-header">本周活跃用户列表</div>
+                        <div class="layui-card-body">
+                            <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                                <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>最后登录时间</th>
+                                    <th>状态</th>
+                                    <th>获得赞</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><span class="first">胡歌</span></td>
+                                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>
+                                    <td><span>在线</span></td>
+                                    <td>22 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="second">彭于晏</span></td>
+                                    <td><i class="layui-icon layui-icon-log"> 10:40</i></td>
+                                    <td><span>在线</span></td>
+                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="third">靳东</span></td>
+                                    <td><i class="layui-icon layui-icon-log"> 01:30</i></td>
+                                    <td><i>离线</i></td>
+                                    <td>66 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>吴尊</td>
+                                    <td><i class="layui-icon layui-icon-log"> 21:18</i></td>
+                                    <td><i>离线</i></td>
+                                    <td>45 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>许上进</td>
+                                    <td><i class="layui-icon layui-icon-log"> 09:30</i></td>
+                                    <td><span>在线</span></td>
+                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>小蚊子</td>
+                                    <td><i class="layui-icon layui-icon-log"> 21:18</i></td>
+                                    <td><i>在线</i></td>
+                                    <td>45 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>贤心</td>
+                                    <td><i class="layui-icon layui-icon-log"> 09:30</i></td>
+                                    <td><span>在线</span></td>
+                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">选择类型</div>
+                <div class="layui-card-body layui-text">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        
+                        <tr>
+                            <td>选择类型</td>
+                            <td style="padding-bottom: 0;">
+                                <div class="layui-btn-container ">
+                                    <a href="#" class="layui-btn layui-btn-danger">游戏</a>
+                                    <a href="#" class="layui-btn layui-btn-normal">应用</a>
+									<a href="#" class="layui-btn ">品牌</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">效果报告</div>
+                <div class="layui-card-body layadmin-takerates">
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top" lay-tips="增长" lay-offset="-15"></span>）
+                        </h3>
+                        <div class="layui-progress-bar" lay-percent="65%"></div>
+                    </div>
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>签到率（日同比 11% <span class="layui-edge layui-edge-bottom" lay-tips="下降"
+                                              lay-offset="-15"></span>）</h3>
+                        <div class="layui-progress-bar" lay-percent="32%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'layuiadmin/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{%  static 'js/jquery-3.1.1.min.js' %}"></script>
+<script>
+    layui.config({
+        base: '{% static 'layuiadmin/' %}' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'console']);
+	
+	var data1 = [];
+	
+    $('.layui-col-xs3').click(function(){
+		var media_name = ($(this).text()).trim();
+		data1 = [22,32,34,52,64,64,43];
+		aj();
+	});
+
+
+</script>
+
+
+</body>
+</html>
+

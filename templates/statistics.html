@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en" class="iframe-h">
+{% load static %}
+ <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title id="changecss1">数据洞察</title>
+  <script type="text/javascript" src="{% static '/admin/js/jquery-3.1.1.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static '/admin/css/styles1.css' %}" type="text/css" />
+  <link rel="stylesheet" href="{% static '/admin/css/layui.css' %}" type="text/css" />
+   <script src="{% static '/admin/js/echarts.min.js' %}"></script>
+    
+	
+ <style>
+	.echart{
+	width:600px;
+	height:400px;
+	float:left;
+	
+	}
+	
+ 
+ </style>
+ </head>   
+ <body rlt="1" style="">
+ <div data-v-75a07552 class="contentBox filter-panel-wrap" style="padding: 10px 20px;">
+  <div class="mainapp">
+	<div data-v-875f8fb0="" id="app">
+    <!----> 
+    <div data-v-875f8fb0="" id="index-content" class="index-content">
+     <div data-v-875f8fb0="" class="view-content">
+      <div data-v-75a07552="" data-v-875f8fb0="" class="material-page">
+       <div data-v-75a07552="" id="doc" class="contentWrap">
+        <!----> 
+        <div data-v-75a07552="" class="contentBox filter-panel-wrap" style="padding: 10px 20px;">
+         <div data-v-2f3f31ed="" data-v-75a07552="">
+  
+          <div data-v-2f3f31ed="" class="fpanel">
+           <div data-v-2f3f31ed="" class="panel">
+            <div data-v-2f3f31ed="" class="firstClass">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">综合资讯</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="今日头条" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/8.png' %}" /> 
+               <i data-v-2f3f31ed="">今日头条</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="腾讯新闻" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/3.png' %}" /> 
+               <i data-v-2f3f31ed="">腾讯新闻</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="天天快报" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/12.png' %}" /> 
+               <i data-v-2f3f31ed="">看点快报</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="UC头条" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/1.png' %}" /> 
+               <i data-v-2f3f31ed="">UC头条</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="趣头条" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/11.png' %}" /> 
+               <i data-v-2f3f31ed="">趣头条</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">垂直资讯</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="虎扑" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/21.png' %}" /> 
+               <i data-v-2f3f31ed="">虎扑</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="懂球帝" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/20.png' %}" /> 
+               <i data-v-2f3f31ed="">懂球帝</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="唔哩头条" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/63.png' %}" /> 
+               <i data-v-2f3f31ed="">唔哩头条</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="段友" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/74.png' %}" /> 
+               <i data-v-2f3f31ed="">段友</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="最右" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/73.png' %}" /> 
+               <i data-v-2f3f31ed="">最右</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">短视频</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="抖音" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/32.png' %}" /> 
+               <i data-v-2f3f31ed="">抖音</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="西瓜视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/13.png' %}" /> 
+               <i data-v-2f3f31ed="">西瓜视频</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="火山小视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/60.png' %}" /> 
+               <i data-v-2f3f31ed="">火山小视频</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="快手" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/62.png' %}" /> 
+               <i data-v-2f3f31ed="">快手</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="皮皮搞笑" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/78.png' %}" /> 
+               <i data-v-2f3f31ed="">皮皮搞笑</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">视频</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="腾讯视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/4.png' %}" /> 
+               <i data-v-2f3f31ed="">腾讯视频</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="爱奇艺视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/6.png' %}" /> 
+               <i data-v-2f3f31ed="">爱奇艺视频</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="百度视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/36.png' %}" /> 
+               <i data-v-2f3f31ed="">百度视频</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="优酷视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/7.png' %}" /> 
+               <i data-v-2f3f31ed="">优酷视频</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="搜狐视频" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/40.png' %}" /> 
+               <i data-v-2f3f31ed="">搜狐视频</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">浏览器</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="QQ浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/54.png' %}" /> 
+               <i data-v-2f3f31ed="">QQ浏览器</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="百度浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/31.png' %}" /> 
+               <i data-v-2f3f31ed="">百度浏览器</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="UC浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/58.png' %}" /> 
+               <i data-v-2f3f31ed="">UC浏览器</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="360浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/46.png' %}" /> 
+               <i data-v-2f3f31ed="">360浏览器</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="搜狗浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/18.png' %}" /> 
+               <i data-v-2f3f31ed="">搜狗浏览器</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">搜索引擎</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="百度" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/5.png' %}" /> 
+               <i data-v-2f3f31ed="">百度</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="搜狗搜索" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/30.png' %}" /> 
+               <i data-v-2f3f31ed="">搜狗搜索</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">社交</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="微信-朋友圈" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/53.png' %}" /> 
+               <i data-v-2f3f31ed="">微信-朋友圈</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="新浪微博" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/52.png' %}" /> 
+               <i data-v-2f3f31ed="">新浪微博</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="QQ空间" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/71.png' %}" /> 
+               <i data-v-2f3f31ed="">QQ空间</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="百度贴吧" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/55.png' %}" /> 
+               <i data-v-2f3f31ed="">百度贴吧</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="豆瓣" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/50.png' %}" /> 
+               <i data-v-2f3f31ed="">豆瓣</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">工具</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="墨迹天气" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/24.png' %}" /> 
+               <i data-v-2f3f31ed="">墨迹天气</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="wifi万能钥匙" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/9.png' %}" /> 
+               <i data-v-2f3f31ed="">WiFi万能钥匙</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="hao123" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/49.png' %}" /> 
+               <i data-v-2f3f31ed="">hao123</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="中央天气预报" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/66.png' %}" /> 
+               <i data-v-2f3f31ed="">中央天气预报</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="中华万年历" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/70.png' %}" /> 
+               <i data-v-2f3f31ed="">中华万年历</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">手机厂商</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="vivo浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/67.png' %}" /> 
+               <i data-v-2f3f31ed="">vivo浏览器</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="小米浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/68.png' %}" /> 
+               <i data-v-2f3f31ed="">小米浏览器</i> 
+               <!---->
+              </div>
+              <div data-v-2f3f31ed="" title="华为浏览器" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/75.png' %}" /> 
+               <i data-v-2f3f31ed="">华为浏览器</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">直播平台</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="斗鱼" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/83.png' %}" /> 
+               <i data-v-2f3f31ed="">斗鱼</i> 
+               <!---->
+              </div>
+             </div>
+            </div>
+            <div data-v-2f3f31ed="" class="firstClass show"  style="display: none;">
+             <div data-v-2f3f31ed="" class="firstTitle">
+              <i data-v-2f3f31ed="" class="lock" style="display: none;"></i> 
+              <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+              <p data-v-2f3f31ed="" class="mt4">应用市场</p>
+             </div> 
+             <div data-v-2f3f31ed="" class="secondList">
+              <div data-v-2f3f31ed="" title="TapTap" class="option" style="width: 114px;">
+               <i data-v-2f3f31ed="" class="icon iconfont icon-check" style="display: none;"></i> 
+               <!----> 
+               <img data-v-2f3f31ed="" src="{% static '/admin/icon/84.png' %}" /> 
+               <i data-v-2f3f31ed="">TapTap</i> 
+               <!---->
+              </div>
+             </div>
+            </div> 
+            <div data-v-2f3f31ed="" style="text-align: center; display: none;">
+             <div data-v-2f3f31ed="" class="btn">
+              是
+             </div> 
+             <div data-v-2f3f31ed="" class="btn cancelBtn">
+              否
+             </div>
+            </div>
+           </div> 
+           <div data-v-2f3f31ed="" class="fbtn down" id="apps">
+            更多
+           </div>
+              {% csrf_token %}
+          </div>
+          <!----> 
+          
+         </div>
+        </div> 
+        
+        
+        <!---->
+       </div> 
+       <!---->
+      </div>
+     </div> 
+    </div>
+   </div> 
+  </div>
+</div>
+ 
+
+  <div class="row x_title"> 
+   <div class="col-md-6"> 
+    <h3 style="padding-left:50%">结果展示</h3> 
+   </div> 
+   <div class="col-md-6"> 
+    <div class="layui-form">
+  <div class="layui-form-item">
+    <div class="layui-inline" style="padding-left: 80%">
+      <label class="layui-form-label">选择日期</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+      </div>
+    </div>
+  </div>
+</div>
+    </div> 
+   </div> 
+  </div>
+
+ <div id="main">
+
+	<div id="left" class="echart"></div>
+	<div id="right" class="echart"></div>
+	<div id="buttom" class="echart"></div>
+	<div id="buttom_right" class="echart"></div>
+
+</div>
+<script src="{% static 'admin/layui/layui.js' %}" charset="utf-8"></script>
+ <script src="{% static 'admin/js/jquery-3.1.1.min.js' %}" charset="utf-8"></script>
+  <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 --> 
+  <script>
+	layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  
+	  //常规用法
+	  laydate.render({
+		elem: '#test1'
+		});
+	  });
+  
+  </script>
+
+
+  <script>
+	
+	$(function(){
+		$('#apps').click(function(){//点击a标签
+			if($('.show').is(':hidden')){//如果当前隐藏
+			$('.show').show();//那么就显示div
+			}else{//否则
+			$('.show').hide();//就隐藏div
+			}
+		})
+	});
+	
+
+  
+  
+  </script>
+  <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart4 = echarts.init(document.getElementById('left'));
+		var myChart1 = echarts.init(document.getElementById('right'));
+		var myChart3 = echarts.init(document.getElementById('buttom'));
+		var myChart2 = echarts.init(document.getElementById('buttom_right'));
+        // 指定图表的配置项和数据
+        var option1 = {
+				title: [{
+						 text: '入库率统计',
+						 x: 'center',
+						 textStyle: {
+							 fontSize: 20
+						 }
+						 
+					 }],
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					color: ["#F58080", "#47D8BE", "#F9A589"],
+					data: ['入库前', '入库后', '未入库'],
+					left: 'center',
+					bottom: 'bottom'
+				},
+				grid: {
+					top: 'middle',
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					height: '80%',
+					containLabel: true
+				},
+				xAxis: {
+					type: 'category',
+					data: ['2019-11-03','2019-11-04','2019-11-05','2019-11-06','2019-11-07','2019-11-08'],
+					axisLine: {
+						lineStyle: {
+							color: "#999"
+						}
+					}
+				},
+				yAxis: {
+					type: 'value',
+
+					splitLine: {
+						lineStyle: {
+							type: 'dashed',
+							color: '#DDD'
+						}
+					},
+					axisLine: {
+						show: false,
+						lineStyle: {
+							color: "#333"
+						},
+					},
+					nameTextStyle: {
+						color: "#999"
+					},
+					splitArea: {
+						show: false
+					}
+				},
+				series: [{
+						name: '入库前',
+						type: 'line',
+						data: [800,900,700,130,660],
+						color: "#F58080",
+						lineStyle: {
+							normal: {
+								width: 5,
+								color: {
+									type: 'linear',
+
+									colorStops: [{
+										offset: 0,
+										color: '#FFCAD4' // 0% 处的颜色
+									}, {
+										offset: 0.4,
+										color: '#F58080' // 100% 处的颜色
+									}, {
+										offset: 1,
+										color: '#F58080' // 100% 处的颜色
+									}],
+									globalCoord: false // 缺省为 false
+								},
+								shadowColor: 'rgba(245,128,128, 0.5)',
+								shadowBlur: 10,
+								shadowOffsetY: 7
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: '#F58080',
+								borderWidth: 10,
+								/*shadowColor: 'rgba(72,216,191, 0.3)',
+								 shadowBlur: 100,*/
+								borderColor: "#F58080"
+							}
+						},
+						smooth: true
+					},
+					{
+						name: '入库后',
+						type: 'line',
+						data: [600,700,600,222,123],
+						lineStyle: {
+							normal: {
+								width: 5,
+								color: {
+									type: 'linear',
+
+									colorStops: [{
+											offset: 0,
+											color: '#AAF487' // 0% 处的颜色
+										},
+										{
+											offset: 0.4,
+											color: '#47D8BE' // 100% 处的颜色
+										}, {
+											offset: 1,
+											color: '#47D8BE' // 100% 处的颜色
+										}
+									],
+									globalCoord: false // 缺省为 false
+								},
+								shadowColor: 'rgba(71,216,190, 0.5)',
+								shadowBlur: 10,
+								shadowOffsetY: 7
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: '#AAF487',
+								borderWidth: 10,
+								/*shadowColor: 'rgba(72,216,191, 0.3)',
+								 shadowBlur: 100,*/
+								borderColor: "#AAF487"
+							}
+						},
+						smooth: true
+					},
+					{
+						name: '未入库',
+						type: 'line',
+						data: [200,200,100,36,784],
+						lineStyle: {
+							normal: {
+								width: 5,
+								color: {
+									type: 'linear',
+
+									colorStops: [{
+											offset: 0,
+											color: '#F6D06F' // 0% 处的颜色
+										},
+										{
+											offset: 0.4,
+											color: '#F9A589' // 100% 处的颜色
+										}, {
+											offset: 1,
+											color: '#F9A589' // 100% 处的颜色
+										}
+									],
+									globalCoord: false // 缺省为 false
+								},
+								shadowColor: 'rgba(249,165,137, 0.5)',
+								shadowBlur: 10,
+								shadowOffsetY: 7
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: '#F6D06F',
+								borderWidth: 10,
+								/*shadowColor: 'rgba(72,216,191, 0.3)',
+								 shadowBlur: 100,*/
+								borderColor: "#F6D06F"
+							}
+						},
+						smooth: true
+					}
+				]
+			};
+        // 使用刚指定的配置项和数据显示图表。
+        var option2 = {
+			title: [{
+					 text: '一周入库量统计',
+					 x: 'center',
+					 textStyle: {
+						 fontSize: 20
+					 }
+				 }],
+			tooltip: {
+				trigger: 'axis'
+			},
+			xAxis: [{
+				type: 'category',
+				data: ['2019-01','2019-02','2019-03','2019-04','2019-05','2019-06'],
+				axisLine: {
+					lineStyle: {
+						color: "#999"
+					}
+				}
+			}],
+			yAxis: [{
+				type: 'value',
+				splitNumber: 4,
+				splitLine: {
+					lineStyle: {
+						type: 'dashed',
+						color: '#DDD'
+					}
+				},
+				axisLine: {
+					show: false,
+					lineStyle: {
+						color: "#333"
+					},
+				},
+				nameTextStyle: {
+					color: "#999"
+				},
+				splitArea: {
+					show: false
+				}
+			}],
+			series: [{
+				name: '总量',
+				type: 'line',
+				data: [23,60,20,36,23,85],
+				lineStyle: {
+					normal: {
+						width: 8,
+						color: {
+							type: 'linear',
+
+							colorStops: [{
+								offset: 0,
+								color: '#A9F387' // 0% 处的颜色
+							}, {
+								offset: 1,
+								color: '#48D8BF' // 100% 处的颜色
+							}],
+							globalCoord: false // 缺省为 false
+						},
+						shadowColor: 'rgba(72,216,191, 0.3)',
+						shadowBlur: 10,
+						shadowOffsetY: 20
+					}
+				},
+				itemStyle: {
+					normal: {
+						color: '#fff',
+						borderWidth: 10,
+						/*shadowColor: 'rgba(72,216,191, 0.3)',
+						shadowBlur: 100,*/
+						borderColor: "#A9F387"
+					}
+				},
+				smooth: true
+			}]
+		};
+		var option4 = {
+			title: {
+				text: '每日数据量统计',
+				x: 'center'
+			},
+			backgroundColor: '#fff',
+			tooltip: {
+				trigger: 'item',
+			},
+			xAxis: {
+				data: ["总量", "andriod", "ios"],
+				axisTick: {
+					show: false
+				},
+				axisLine: {
+					show: false
+				},
+				axisLabel: {
+					textStyle: {
+						color: '#888'
+					},
+					margin: 20, //刻度标签与轴线之间的距离。
+				},
+
+			},
+			yAxis: {
+				splitLine: {
+					show: true,
+					lineStyle: {
+						color: '#eee',
+						type: 'dashed'
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				axisLine: {
+					show: false
+				},
+				axisLabel: {
+					textStyle: {
+						color: '#888'
+					},
+				}
+			},
+			series: [{
+				name: '媒体日统计',
+				type: 'pictorialBar',
+				symbolSize: [100, 25],
+				symbolOffset: [0, -10],
+				z: 12,
+				symbolPosition: 'end',
+				itemStyle: {
+					normal: {
+						color: '#d7ebcb'
+					}
+				},
+				data: [100, 50, 50],
+
+			}, {
+				name: '媒体日统计',
+				type: 'pictorialBar',
+				symbolSize: [100, 25],
+				symbolOffset: [0, 10],
+				z: 12,
+				itemStyle: {
+					normal: {
+						color: '#69c37b'
+					}
+				},
+				data: [100, 50, 50]
+			}, {
+				type: 'bar',
+				itemStyle: {
+					normal: {
+						color: '#69c37b'
+					}
+				},
+				barWidth: 100,
+				data: [100, 50, 50]
+			}]
+		};
+		myChart1.setOption(option1);
+		myChart3.setOption(option2);
+		myChart4.setOption(option4);
+
+		$(function(){
+			$('.secondList .option').click(function(){
+				alert(($(this).text()).trim());
+				let text = ($(this).text()).trim();
+				$.ajax({
+                        url: "{% url 'fx' %}",
+                        data: {"media_name": text, 'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()},
+                        cache: "false",
+                        async: "true",
+                        dataType: "json",
+                        type: "post",
+                        success: function (data) {
+                            var result = data['result'];
+                            var sum_game = result['sum_game'];
+                            var andriod_game = result['andriod_game'];
+                            var ios_game = result['ios_game'];
+                            var title = result['title'];
+                            var week_days_list = result['week_days_list'];
+                            var data_lists = result['data_lists'];
+                            option4.series[0].data=[sum_game,andriod_game,ios_game];
+                            option4.series[1].data=[sum_game,andriod_game,ios_game];
+                            option4.series[2].data=[sum_game,andriod_game,ios_game];
+                            option2.xAxis[0].data = week_days_list;
+                            option2.series[0].data = data_lists;
+                            option4.title.text = title+"(今天)";
+                            option2.title[0].text = title+"(一周)";
+
+
+                            myChart4.setOption(option4);
+                            myChart3.setOption(option2);
+                        },
+                        error: function () {
+                                alert("服务器端异常!请稍后再试");
+                            },
+                });
+		    })
+		});
+    </script>
+ </body>
+</html>
