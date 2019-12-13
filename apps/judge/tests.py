@@ -1,7 +1,5 @@
 import datetime
 import pymysql
-from django.test import TestCase
-from adi.settings import *
 
 # Create your tests here.
 # for i in range(1, 7):
@@ -11,8 +9,8 @@ connection = pymysql.connect(host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
                              password='Adi_mysql',
                              database='adinsights_v3', charset='utf8')
 
-
 # 得到一个可以执行SQL语句的光标对象
+from .media_name.config import media_name
 
 
 def sum_game(media_name, ts):
@@ -83,20 +81,33 @@ def fetch_one(sql):
 def insert_data(sql, param):
     cursor = connection.cursor()
     cursor.execute(sql, param)
-    connection.commit()
 
 
 
-if __name__ == '__main__':
+def yesterday_to_mysql():
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     today = str(datetime.date.today())
     days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
-    andrio_data = andriod_game('天天快报', days)
-    ios_data = ios_game('天天快报', days)
-    # data = sum_game('天天快报', days)
-    ua = 'ios'
-    sql = 'insert into app_statistics(media_name,ua,data_volume,days,add_time,update_time) values(%s,%s,%s,%s,%s,%s)'
-    param = ['天天快报', 'ios', ios_data, days, ts, ts]
-    insert_data(sql, param)
-    print(andrio_data, ios_data)
-    print(ts)
+    for name in media_name:
+
+        try:
+            android_sum = andriod_game(name, days)
+            ios_sum = ios_game(name, days)
+            if not android_sum:
+                android_sum=0
+            if not ios_sum:
+                ios_sum=0
+            sql = 'insert into app_statistics(media_name,ua,data_volume,days,add_time,update_time) values(%s,%s,%s,%s,%s,%s)'
+            ios_param = [name, 'ios', ios_sum, days, ts, ts]
+            insert_data(sql, ios_param)
+            android_param = [name, 'android', android_sum, days, ts, ts]
+            insert_data(sql, android_param)
+            print(name+"同步完成！")
+        except Exception as e:
+            print(name+"报错了~")
+            print(e)
+    connection.commit()
+    connection.close()
+
+if __name__ == '__main__':
+    yesterday_to_mysql()
