@@ -41,6 +41,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../文档说明/weixin/qzone_server" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -163,7 +164,7 @@
       <workItem from="1575860630477" duration="4046000" />
       <workItem from="1575968348872" duration="10782000" />
       <workItem from="1576030383762" duration="16206000" />
-      <workItem from="1576137539473" duration="12635000" />
+      <workItem from="1576137539473" duration="14124000" />
     </task>
     <servers />
   </component>
@@ -183,6 +184,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/adi$views.coverage" NAME="views Coverage Results" MODIFIED="1574826268749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
-    <SUITE FILE_PATH="coverage/adi$tests.coverage" NAME="tests Coverage Results" MODIFIED="1576232844645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
+    <SUITE FILE_PATH="coverage/adi$tests.coverage" NAME="tests Coverage Results" MODIFIED="1576234444890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
   </component>
 </project>

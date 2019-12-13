@@ -1,16 +1,100 @@
 import datetime
 import pymysql
 
-# Create your tests here.
-# for i in range(1, 7):
-#     days = (datetime.date.today() + datetime.timedelta(days=-i)).strftime("%Y-%m-%d")
-#     print(days)
-connection = pymysql.connect(host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
-                             password='Adi_mysql',
-                             database='adinsights_v3', charset='utf8')
+from DBUtils.PooledDB import PooledDB
+
+pool  = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
+                      password='Adi_mysql',
+                      database='adinsights_v3', charset='utf8')
+conn = pool .connection()
 
 # 得到一个可以执行SQL语句的光标对象
-from .media_name.config import media_name
+media_name = [
+    "360浏览器",
+    "hao123",
+    "IT之家",
+    "pptv",
+    "QQ浏览器",
+    "QQ空间",
+    "TapTap",
+    "UC头条",
+    "UC浏览器",
+    "vivo浏览器",
+    "wifi万能钥匙",
+    "zaker",
+    "一点资讯",
+    "东方头条",
+    "中关村在线",
+    "中华万年历",
+    "中央天气预报",
+    "乐视视频",
+    "今日十大热点",
+    "今日头条",
+    "今日影视大全",
+    "今日要看",
+    "优酷视频",
+    "凤凰新闻",
+    "凤凰视频",
+    "华为浏览器",
+    "咪咕影院",
+    "哔哩哔哩",
+    "唔哩头条",
+    "土豆视频",
+    "墨迹天气",
+    "天天快报",
+    "好奇心日报",
+    "好看视频",
+    "小米浏览器",
+    "小米画报",
+    "小米视频",
+    "引力资讯",
+    "微信-公众号",
+    "微信-小程序",
+    "微信-朋友圈",
+    "快手",
+    "悦头条",
+    "懂球帝",
+    "抖音",
+    "搜狐新闻",
+    "搜狐视频",
+    "搜狗搜索",
+    "搜狗浏览器",
+    "斗鱼",
+    "新浪体育",
+    "新浪微博",
+    "新浪新闻",
+    "新浪财经",
+    "最右",
+    "段友",
+    "汽车之家",
+    "波波视频",
+    "火山小视频",
+    "爱奇艺视频",
+    "爱看",
+    "猎豹浏览器",
+    "猎豹清理大师",
+    "球球视频",
+    "界面新闻",
+    "百度",
+    "百度浏览器",
+    "百度视频",
+    "百度贴吧",
+    "皮皮搞笑",
+    "皮皮虾",
+    "知乎",
+    "米尔军事",
+    "糗事百科",
+    "网易新闻",
+    "腾讯QQ",
+    "腾讯新闻",
+    "腾讯视频",
+    "虎扑",
+    "西瓜视频",
+    "豆瓣",
+    "趣头条",
+    "遨游浏览器",
+    "风行视频",
+]
 
 
 def sum_game(media_name, ts):
@@ -72,16 +156,15 @@ def week_data(media_name):
 
 
 def fetch_one(sql):
-    cursor = connection.cursor()
+    cursor = conn.cursor()
     cursor.execute(sql)
     raw = cursor.fetchone()
     return raw
 
 
 def insert_data(sql, param):
-    cursor = connection.cursor()
+    cursor = conn.cursor()
     cursor.execute(sql, param)
-
 
 
 def yesterday_to_mysql():
@@ -94,20 +177,48 @@ def yesterday_to_mysql():
             android_sum = andriod_game(name, days)
             ios_sum = ios_game(name, days)
             if not android_sum:
-                android_sum=0
+                android_sum = 0
             if not ios_sum:
-                ios_sum=0
+                ios_sum = 0
             sql = 'insert into app_statistics(media_name,ua,data_volume,days,add_time,update_time) values(%s,%s,%s,%s,%s,%s)'
-            ios_param = [name, 'ios', ios_sum, days, ts, ts]
+            ios_param = [name, '2', ios_sum, days, ts, ts]
             insert_data(sql, ios_param)
-            android_param = [name, 'android', android_sum, days, ts, ts]
+            android_param = [name, '1', android_sum, days, ts, ts]
             insert_data(sql, android_param)
-            print(name+"同步完成！")
+            print(name + "同步完成！")
         except Exception as e:
-            print(name+"报错了~")
+            print(name + "报错了~")
             print(e)
-    connection.commit()
-    connection.close()
+    conn.commit()
+    conn.close()
+
+
+def a_month_asn():
+    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    today = str(datetime.date.today())
+    for i in range(4, 30):
+        print("正在同步第" + str(i) + "天")
+        days = (datetime.date.today() + datetime.timedelta(days=-i)).strftime("%Y-%m-%d")
+        for name in media_name:
+            try:
+                android_sum = andriod_game(name, days)
+                ios_sum = ios_game(name, days)
+                if not android_sum:
+                    android_sum = 0
+                if not ios_sum:
+                    ios_sum = 0
+                sql = 'insert into app_statistics(media_name,ua,data_volume,days,add_time,update_time) values(%s,%s,%s,%s,%s,%s)'
+                ios_param = [name, '2', ios_sum, days, ts, ts]
+                insert_data(sql, ios_param)
+                android_param = [name, '1', android_sum, days, ts, ts]
+                insert_data(sql, android_param)
+                print(name + "同步完成！")
+            except Exception as e:
+                print(name + "报错了~")
+                print(e)
+    conn.commit()
+    conn.close()
+
 
 if __name__ == '__main__':
-    yesterday_to_mysql()
+    a_month_asn()
