@@ -523,6 +523,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% csrf_token %}
                     </div>
                 </div>
                 
@@ -619,9 +620,9 @@
                             <td>选择类型</td>
                             <td style="padding-bottom: 0;">
                                 <div class="layui-btn-container ">
-                                    <a href="#" class="layui-btn layui-btn-danger">游戏</a>
-                                    <a href="#" class="layui-btn layui-btn-normal">应用</a>
-									<a href="#" class="layui-btn ">品牌</a>
+                                    <a href="#" class="layui-btn layui-btn-danger report_type" >游戏</a>
+                                    <a href="#" class="layui-btn layui-btn-normal report_type" >应用</a>
+									<a href="#" class="layui-btn report_type" >品牌</a>
                                 </div>
                             </td>
                         </tr>
@@ -658,18 +659,63 @@
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'console']);
-	
-	var data1 = [];
-	
+	var layer 	= layui.layer;
+	var date_list = [];
+	var android_data_list = [];
+	var ios_data_list = [];
+	var media_name = "看点快报";
+	var report_type = "游戏";
+	var report_type_post = "game";
+	 $('.report_type').click(function(){
+	     report_type = ($(this).text()).trim();
+	     layer.alert("当前类型为:"+report_type,{icon: 1});
+         if(report_type==="游戏"){
+             report_type_post="game"
+         }else if(report_type==="应用"){
+             report_type_post="app"
+         }else {
+             report_type_post='brand'
+         }
+     });
     $('.layui-col-xs3').click(function(){
-		var media_name = ($(this).text()).trim();
-		data1 = [22,32,34,52,64,64,43];
-		aj();
+		media_name = ($(this).text()).trim();
+		$.ajax({
+            url: "{% url 'fx' %}",
+            data: {"media_name": media_name,'report_type':report_type_post, 'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()},
+            cache: "false",
+            async: "true",
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                //data是json类型
+                date_list = [];
+                sum_data = [];
+                android_data_list = [];
+                ios_data_list = [];
+                var result = data['result'];
+                date_list = result['date_list'];
+                sum_data = result['sum_data'];
+                android_data_list = result['android_data_list'];
+                ios_data_list = result['ios_data_list'];
+                aj();
+            },
+            error: function () {
+                alert("服务器端异常!请稍后再试");
+            },
+            });
+
 	});
 
 
 </script>
 
+<script>
+    var data ={{ data|safe }};
+    var date_list = data['date_list'];
+    var android_data_list = data['android_data_list'];
+    var ios_data_list = data['ios_data_list'];
+    var sum_data = data['sum_data'];
+</script>
 
 </body>
 </html>

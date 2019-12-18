@@ -40,21 +40,21 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../文档说明/weixin/qzone_server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/js" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\adi\static\js" />
+      <recent name="E:\adi\static" />
+      <recent name="E:\adi\templates" />
+      <recent name="E:\adi\templates\bak" />
+      <recent name="E:\adi\static\admin\js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\adi\apps\judge\media_name" />
       <recent name="E:\adi\static\admin" />
       <recent name="E:\adi\apps" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\adi\static" />
-      <recent name="E:\adi\static\js" />
-      <recent name="E:\adi\templates" />
-      <recent name="E:\adi\templates\bak" />
-      <recent name="E:\adi\static\admin\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -165,6 +165,9 @@
       <workItem from="1575968348872" duration="10782000" />
       <workItem from="1576030383762" duration="16206000" />
       <workItem from="1576137539473" duration="14335000" />
+      <workItem from="1576478292276" duration="12094000" />
+      <workItem from="1576496290330" duration="5780000" />
+      <workItem from="1576563604165" duration="14790000" />
     </task>
     <servers />
   </component>
@@ -176,7 +179,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -184,6 +189,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/adi$views.coverage" NAME="views Coverage Results" MODIFIED="1574826268749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
-    <SUITE FILE_PATH="coverage/adi$tests.coverage" NAME="tests Coverage Results" MODIFIED="1576234444890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
+    <SUITE FILE_PATH="coverage/adi$tests.coverage" NAME="tests Coverage Results" MODIFIED="1576634063253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
   </component>
 </project>

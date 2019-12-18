@@ -30,7 +30,7 @@ layui.define(function (e) {
         l = [],
         n = [{
             title: {
-                text: "今日流量趋势",
+                text: "媒体趋势",
                 x: "center",
                 textStyle: {
                     fontSize: 14
@@ -51,7 +51,7 @@ layui.define(function (e) {
                 type: "value"
             }],
             series: [{
-                name: "PV",
+                name: "总量",
                 type: "line",
                 smooth: !0,
                 itemStyle: {
@@ -64,7 +64,7 @@ layui.define(function (e) {
                 data: [111, 222, 333, 444, 555, 666, 3333, 33333, 55555, 66666, 33333, 3333, 6666, 11888, 26666, 38888, 56666, 42222, 39999, 28888, 17777, 9666, 6555, 5555, 3333, 2222, 3111, 6999, 5888, 2777, 1666, 999, 888, 777]
             },
 			{
-                name: "PV",
+                name: "android",
                 type: "line",
                 smooth: !0,
                 itemStyle: {
@@ -77,7 +77,7 @@ layui.define(function (e) {
                 data: [102, 343, 542, 576, 555, 532, 466, 4657, 235, 5456, 768, 235, 6453, 11888, 26666, 38888, 56666, 42222, 39999, 28888, 17777, 9666, 6555, 5555, 3333, 2222, 3111, 6999, 5888, 2777, 1666, 999, 888, 777]
             },
             {
-                name: "UV",
+                name: "ios",
                 type: "line",
                 smooth: !0,
                 itemStyle: {
@@ -161,9 +161,13 @@ layui.define(function (e) {
         r = e("#LAY-index-dataview").children("div"),
         o = function(e) {
             l[e] = i.init(r[e], layui.echartsTheme),
-			len = data1.length;
+			len = date_list.length;
 			if(len>0){
-				n[2].series[0].data=data1;
+			    n[0].title.text = media_name+"30天趋势图"+"("+report_type+")";
+			    n[0].xAxis[0].data=date_list;
+				n[0].series[0].data=sum_data;
+				n[0].series[1].data=android_data_list;
+				n[0].series[2].data=ios_data_list;
 			}
 			
             l[e].setOption(n[e],true),

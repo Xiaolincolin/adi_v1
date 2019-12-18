@@ -1,6 +1,6 @@
 import json
 import time
-
+import numpy
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
@@ -107,40 +107,94 @@ class FormView(View):
 
 class StatisticsView(View):
     def get(self, request):
-        return render(request, "console.html", {})
+        result = {}
+        date_list = []
+        android_data_list = []
+        ios_data_list = []
+        sum_data = []
+        media_name = "天天快报"
+        end_days = str(datetime.date.today())
+        start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
+        sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+        sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
+        result = self.fetch_one(sql)
+        for item in result:
+            if len(item) == 7:
+                dt = item[4]
+                ua = item[2]
+                data = item[3]
+                if dt not in date_list:
+                    date_list.append(item[4])
+                if ua == "1":
+                    android_data_list.append(data)
+                else:
+                    ios_data_list.append(data)
+        if len(android_data_list) == (len(ios_data_list)):
+            for i in range(0, len(android_data_list)):
+                sum_data.append(android_data_list[i] + ios_data_list[i])
+        result = {
+                "date_list": date_list,
+                "android_data_list": android_data_list,
+                "ios_data_list": ios_data_list,
+                "sum_data": sum_data,
+        }
+        # result['date_list'] = date_list
+        # result['android_data_list'] = android_data_list
+        # result['ios_data_list'] = ios_data_list
+        # result['sum_data'] = sum_data
+        # print(result)
+        return render(request, "console.html", {'data':json.dumps(result)})
 
     def post(self, request):
         # ua= 1 andrio 2 ios
         result = {}
-        media_game = ""
+        date_list = []
+        android_data_list = []
+        ios_data_list = []
+        sum_data = []
         media_name = request.POST.get("media_name", "")
+        report_type = request.POST.get("report_type", "")
         if media_name == "看点快报":
             media_name = "天天快报"
-
-        week_days_lists, data_lists = self.week_data(media_name)
-        ts = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-        sum_game = self.sum_game(media_name, ts)
-        andriod_game = self.andriod_game(media_name, ts)
-        ios_game = self.ios_game(media_name, ts)
+        end_days = str(datetime.date.today())
+        start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
+        sql = ""
+        if report_type=="game":
+            sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+        elif report_type=="app":
+            sql = "select * from app_statistics_app where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+        sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
+        result = self.fetch_one(sql)
+        for item in result:
+            if len(item) == 7:
+                dt = item[4]
+                ua = item[2]
+                data = item[3]
+                if dt not in date_list:
+                    date_list.append(item[4])
+                if ua == "1":
+                    android_data_list.append(data)
+                else:
+                    ios_data_list.append(data)
+        if len(android_data_list) == (len(ios_data_list)):
+            for i in range(0, len(android_data_list)):
+                sum_data.append(android_data_list[i] + ios_data_list[i])
         result = {
             "result": {
-                'title': media_name,
-                "sum_game": sum_game,
-                "andriod_game": andriod_game,
-                "ios_game": ios_game,
-                "week_days_list":week_days_lists,
-                "data_lists":data_lists,
-
+                'date_list': date_list,
+                "android_data_list": android_data_list,
+                "ios_data_list": ios_data_list,
+                "sum_data": sum_data,
             }
         }
-        print(result)
+        # print(result)
 
         return JsonResponse(result, safe=False)
 
     def fetch_one(self, sql):
         cursor = connection.cursor()
         cursor.execute(sql)
-        raw = cursor.fetchone()
+        raw = cursor.fetchall()
         return raw
 
     def sum_game(self, media_name, ts):
