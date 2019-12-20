@@ -250,3 +250,30 @@ class StatisticsView(View):
         data_list = data_list[::-1]
 
         return week_datatime_list, data_list
+
+
+class WechatView(View):
+    def get(self,requests):
+
+        return render(requests,"data.html",{})
+
+    def fetch_all(self, sql):
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        raw = cursor.fetchall()
+        return raw
+
+    def get_all_data(self):
+        pass
+
+    def get_today_data(self):
+        pass
+
+    def get_all_game(self):
+        pass
+
+    def get_today_game(self):
+        pass
+
+    def get_pyq_data(self):
+        pass
