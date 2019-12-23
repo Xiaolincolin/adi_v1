@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <title>layuiAdmin 角色管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-inline">
+                <label class="layui-form-label">按月选择</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test2" placeholder="yyyy">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" onclick="OnChk()">按天选择</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+                </div>
+                {% csrf_token %}
+            </div>
+            <button class="layui-btn layui-btn-warm" style="left: 200px;margin-left: 35%;" id="export">
+                <i class="iconfont icon-tingyong"></i> 导出
+            </button>
+        </div>
+
+    </div>
+    <div class="layui-card-body">
+
+        <table class="layui-hide" id="demo"></table>
+    </div>
+</div>
+
+</div>
+
+<script src="{% static 'layuiadmin/layui/layui.js' %}"></script>
+<script>
+    var this_month = {{ this_month|safe }}
+    layui.use('table', function () {
+            var table = layui.table;
+            var $ = layui.jquery;
+            var exportData = " ";			//定义全局变量
+            //展示已知数据
+
+            reload_table = function () {
+                table.render({
+                    elem: '#demo'
+                    ,id: 'test'
+                    , cols: [[ //标题栏
+                        {field: 'id', title: 'ID', width: 80, sort: true}
+                        , {field: 'username', title: '用户', width: 120}
+                        , {field: 'media', title: '媒体', width: 80}
+                        , {field: 'game', title: '游戏', width: 80, sort: true}
+                        , {field: 'app', title: '应用', width: 80, sort: true}
+                        , {field: 'brand', title: '品牌', width: 80, sort: true}
+                        , {field: 'days', title: '日期', minWidth: 80}
+                    ]]
+                    , data: this_month
+                    , done: function (res, curr, count) {
+                        exportData=res.data; 		//获取表格中的数据集合。
+                    }
+                    //,skin: 'line' //表格风格
+                    , even: true
+                    , page: true //是否显示分页
+                    //,limits: [5, 7, 10]
+                    , limit: 10 //每页默认显示的数量
+                });
+            };
+            reload_table();
+            $("#export").click(function () {
+                table.exportFile("xxl", exportData, 'xls');
+            })
+        });
+    layui.use('laydate', function () {
+        //常规用法
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#test1'
+            , trigger: 'click'	  // 事件类型
+            , done: function (value, date, endDate) {
+                get_data(value, 'd');
+            }
+        });
+        laydate.render({
+            elem: '#test2'
+            , type: 'month'
+            , trigger: 'click'	  // 事件类型
+            , done: function (value, date, endDate) {
+                get_data(value, 'm')
+            }
+        });
+    });
+
+    function get_data(dt, dt_type) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            var $ = layui.jquery;
+            var text = "xxl";
+            $.ajax({
+                url: "{% url 'wechat' %}",
+                data: {
+                    "click_time": dt,
+                    'dt_type': dt_type,
+                    'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()
+                },
+                type: "Post",
+                dataType: "json",
+                success: function (datas) {
+                    layer.msg("成功");
+                    this_month = datas;
+                    reload_table();
+                },
+                error: function (data) {
+                    alert('错误');
+                }
+            });
+        });
+    }
+
+</script>
+
+</body>
+</html>

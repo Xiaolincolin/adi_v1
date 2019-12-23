@@ -133,17 +133,17 @@ class StatisticsView(View):
             for i in range(0, len(android_data_list)):
                 sum_data.append(android_data_list[i] + ios_data_list[i])
         result = {
-                "date_list": date_list,
-                "android_data_list": android_data_list,
-                "ios_data_list": ios_data_list,
-                "sum_data": sum_data,
+            "date_list": date_list,
+            "android_data_list": android_data_list,
+            "ios_data_list": ios_data_list,
+            "sum_data": sum_data,
         }
         # result['date_list'] = date_list
         # result['android_data_list'] = android_data_list
         # result['ios_data_list'] = ios_data_list
         # result['sum_data'] = sum_data
         # print(result)
-        return render(request, "console.html", {'data':json.dumps(result)})
+        return render(request, "console.html", {'data': json.dumps(result)})
 
     def post(self, request):
         # ua= 1 andrio 2 ios
@@ -159,9 +159,9 @@ class StatisticsView(View):
         end_days = str(datetime.date.today())
         start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
         sql = ""
-        if report_type=="game":
+        if report_type == "game":
             sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
-        elif report_type=="app":
+        elif report_type == "app":
             sql = "select * from app_statistics_app where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
         sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
         result = self.fetch_one(sql)
@@ -253,9 +253,24 @@ class StatisticsView(View):
 
 
 class WechatView(View):
-    def get(self,requests):
+    def get(self, requests):
+        year = datetime.datetime.now().year
+        month = datetime.datetime.now().month
+        this_month = str(year) + "-" + str(month)
+        a_month_data = self.get_month_data(this_month)
+        return render(requests, "role.html", {"this_month": json.dumps(a_month_data)})
 
-        return render(requests,"data.html",{})
+    def post(self, requests):
+        click_time = requests.POST.get("click_time", "")
+        dt_type = requests.POST.get("dt_type", "")
+        if dt_type == "m":
+            days = click_time
+            data_list = self.get_month_data(days)
+            return JsonResponse(data_list, safe=False)
+        else:
+            days = click_time
+            data_list = self.get_one_day(days)
+            return JsonResponse(data_list, safe=False)
 
     def fetch_all(self, sql):
         cursor = connection.cursor()
@@ -263,17 +278,38 @@ class WechatView(View):
         raw = cursor.fetchall()
         return raw
 
-    def get_all_data(self):
-        pass
+    def get_one_day(self, dt):
+        sql = "SELECT * FROM wechat_asy where days='{}'"
+        sql = sql.format(dt)
+        data = self.fetch_all(sql)
+        data_list = []
+        for item in data:
+            tmp = {}
+            tmp["id"] = item[0]
+            tmp["username"] = item[1]
+            tmp["media"] = item[2]
+            tmp["game"] = item[4]
+            tmp["app"] = item[3]
+            tmp["brand"] = item[5]
+            tmp['days'] = item[8]
+            data_list.append(tmp)
+        return data_list
 
-    def get_today_data(self):
-        pass
+    def get_month_data(self, days):
+        sql = "SELECT * FROM wechat_month_asy where days='{}'"
+        sql = sql.format(days)
+        data = self.fetch_all(sql)
+        print(data)
+        data_list = []
+        for item in data:
+            tmp = {}
+            tmp["id"] = item[0]
+            tmp["username"] = item[1]
+            tmp["media"] = ""
+            tmp["game"] = item[3]
+            tmp["app"] = item[2]
+            tmp["brand"] = item[4]
+            tmp['days'] = item[7]
+            data_list.append(tmp)
 
-    def get_all_game(self):
-        pass
-
-    def get_today_game(self):
-        pass
-
-    def get_pyq_data(self):
-        pass
+        return data_list
