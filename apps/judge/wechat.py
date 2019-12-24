@@ -22,8 +22,8 @@ class wechat:
         fetch_data = self.fetch_all(sql)
         tmp = {}
         for item in fetch_data:
-            print(item)
             user = item[0]
+            print("正在插入:", user)
             type_id = item[1]
             source_id = item[2]
             sum_data = item[3]
@@ -55,7 +55,6 @@ class wechat:
         fetch_data = self.fetch_all(sql)
         tmp = {}
         for item in fetch_data:
-            # print(item)
             user = item[0]
             type_id = item[1]
             sum_data = item[2]
@@ -81,8 +80,16 @@ class wechat:
         raw = cursor.fetchall()
         return raw
 
+    def update_month(self, sql):
+        cursor = conn.cursor()
+        cursor.execute(sql)
+
+    def insert_data(self, sql, param):
+        cursor = conn.cursor()
+        cursor.execute(sql, param)
+
     def asy_data(self):
-        days = (datetime.date.today() + datetime.timedelta(days=-4)).strftime("%Y-%m-%d")
+        days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
         source_id = [0, 1, 3]
         for s_id in source_id:
             data = self.get_data(days, s_id)
@@ -105,9 +112,12 @@ class wechat:
         year = datetime.datetime.now().year
         month = datetime.datetime.now().month
         start_days = str(year) + "-" + str(month) + "-01"
+        # end_days = "2019-11-30"
+        # start_days = "2019-11-01"
         data = self.get_month_data(start_days, end_days)
         if not data:
             return
+
         for users, item in data.items():
             user = users
             days = item.get("days", "")
@@ -115,18 +125,30 @@ class wechat:
             game = item.get(1, 0)
             brand = item.get(2, 0)
             sql = "insert into wechat_month_asy(users, app, game, brand, create_time, days) values(%s,%s,%s,%s,%s,%s)"
+            sql1 = "SELECT users,days from wechat_month_asy where users='{u}' and days='{days}'"
+            sql1 = sql1.format(u=user, days=days)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             params = [user, app, game, brand, ts, days]
-            self.insert_data(sql, params)
-
-    def insert_data(self, sql, param):
-        cursor = conn.cursor()
-        cursor.execute(sql, param)
+            has_exist = self.fetch_all(sql1)
+            if has_exist:
+                sql_update = "UPDATE wechat_month_asy SET app='{app}',game='{game}',brand='{brand}',update_time=NOW() where `users`='{usr}' and `days`='{days}';"
+                sql_update = sql_update.format(app=app, game=game, brand=brand, usr=user, days=days)
+                self.update_month(sql_update)
+                print(user, " 更新成功！！")
+            else:
+                self.insert_data(sql, params)
+                print(user, " 插入成功！！！")
 
 
 if __name__ == '__main__':
     we = wechat()
-    # data = we.asy_data()
-    we.asy_month_data()
+    try:
+        we.asy_data()
+    except Exception as e:
+        print(e)
+    try:
+        we.asy_month_data()
+    except Exception as e:
+        print(e)
     conn.commit()
     conn.close()

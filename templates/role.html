@@ -49,13 +49,12 @@
     layui.use('table', function () {
             var table = layui.table;
             var $ = layui.jquery;
-            var exportData = " ";			//定义全局变量
             //展示已知数据
 
             reload_table = function () {
                 table.render({
                     elem: '#demo'
-                    ,id: 'test'
+                    ,id: 'idTest'
                     , cols: [[ //标题栏
                         {field: 'id', title: 'ID', width: 80, sort: true}
                         , {field: 'username', title: '用户', width: 120}
@@ -66,9 +65,6 @@
                         , {field: 'days', title: '日期', minWidth: 80}
                     ]]
                     , data: this_month
-                    , done: function (res, curr, count) {
-                        exportData=res.data; 		//获取表格中的数据集合。
-                    }
                     //,skin: 'line' //表格风格
                     , even: true
                     , page: true //是否显示分页
@@ -78,9 +74,11 @@
             };
             reload_table();
             $("#export").click(function () {
-                table.exportFile("xxl", exportData, 'xls');
-            })
+                table.exportFile(['id','username','media','game','app','brand','days'], this_month, 'xls');
+            });
+
         });
+
     layui.use('laydate', function () {
         //常规用法
         var laydate = layui.laydate;

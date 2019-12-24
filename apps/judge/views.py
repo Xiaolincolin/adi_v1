@@ -9,7 +9,10 @@ from w3lib.util import to_unicode
 import ast
 import datetime
 from django.db import connection
+user_dict = {
+    '17056225301':'徐小林',
 
+}
 
 # Create your views here.
 

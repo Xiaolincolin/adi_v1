@@ -185,8 +185,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.wechat" />
-        <item itemvalue="Python.t" />
         <item itemvalue="Python.tests" />
+        <item itemvalue="Python.t" />
         <item itemvalue="Python.views" />
       </list>
     </recent_temporary>
@@ -218,7 +218,7 @@
       <workItem from="1576756323376" duration="257000" />
       <workItem from="1576983045667" duration="22518000" />
       <workItem from="1577083797629" duration="76000" />
-      <workItem from="1577090619783" duration="12240000" />
+      <workItem from="1577090619783" duration="19139000" />
     </task>
     <servers />
   </component>
@@ -240,8 +240,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/adi$views.coverage" NAME="views Coverage Results" MODIFIED="1574826268749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
-    <SUITE FILE_PATH="coverage/adi$tests.coverage" NAME="tests Coverage Results" MODIFIED="1576983083710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
-    <SUITE FILE_PATH="coverage/adi$wechat.coverage" NAME="wechat Coverage Results" MODIFIED="1577093977040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
+    <SUITE FILE_PATH="coverage/adi$tests.coverage" NAME="tests Coverage Results" MODIFIED="1577157164831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
+    <SUITE FILE_PATH="coverage/adi$wechat.coverage" NAME="wechat Coverage Results" MODIFIED="1577157707003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/judge" />
     <SUITE FILE_PATH="coverage/adi$t.coverage" NAME="t Coverage Results" MODIFIED="1577006408767" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/adi" />
   </component>
 </project>

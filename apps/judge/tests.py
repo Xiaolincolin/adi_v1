@@ -168,7 +168,6 @@ def ios_app(media_name, ts):
 
 def yesterday_to_mysql():
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    today = str(datetime.date.today())
     days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
     # days = "2019-12-14"
     for name in media_name:
@@ -277,7 +276,7 @@ def app_a_month_asn():
 import numpy
 
 if __name__ == '__main__':
-    a_month_asn()
-    # yesterday_to_mysql()
+    # a_month_asn()
+    yesterday_to_mysql()
     # app_yesterday_to_mysql()
     # app_a_month_asn()
