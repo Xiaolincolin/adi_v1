@@ -302,7 +302,7 @@ class WechatView(View):
         sql = "SELECT * FROM wechat_month_asy where days='{}'"
         sql = sql.format(days)
         data = self.fetch_all(sql)
-        print(data)
+        # print(data)
         data_list = []
         for item in data:
             tmp = {}
