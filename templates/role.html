@@ -62,6 +62,7 @@
                         , {field: 'game', title: '游戏', width: 80, sort: true}
                         , {field: 'app', title: '应用', width: 80, sort: true}
                         , {field: 'brand', title: '品牌', width: 80, sort: true}
+                        , {field: 'sum_day', title: '活跃天数', width: 120, sort: true}
                         , {field: 'days', title: '日期', minWidth: 80}
                     ]]
                     , data: this_month
@@ -74,7 +75,7 @@
             };
             reload_table();
             $("#export").click(function () {
-                table.exportFile(['id','username','media','game','app','brand','days'], this_month, 'xls');
+                table.exportFile(['id','username','media','game','app','brand','sum_day','days'], this_month, 'xls');
             });
 
         });

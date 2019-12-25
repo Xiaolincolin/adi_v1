@@ -17,6 +17,7 @@ user_dict = {
 # Create your views here.
 
 class ClassifyView(View):
+    #主页，index
     def get(self, request):
         return render(request, 'index.html', {})
 
@@ -27,6 +28,7 @@ class ClassifyView(View):
 
 
 class FormView(View):
+    # 爬虫优化
     def get(self, request):
         return render(request, "article-list.html", {})
 
@@ -109,6 +111,7 @@ class FormView(View):
 
 
 class StatisticsView(View):
+    # 媒体数据监测
     def get(self, request):
         result = {}
         date_list = []
@@ -141,11 +144,6 @@ class StatisticsView(View):
             "ios_data_list": ios_data_list,
             "sum_data": sum_data,
         }
-        # result['date_list'] = date_list
-        # result['android_data_list'] = android_data_list
-        # result['ios_data_list'] = ios_data_list
-        # result['sum_data'] = sum_data
-        # print(result)
         return render(request, "console.html", {'data': json.dumps(result)})
 
     def post(self, request):
@@ -313,6 +311,7 @@ class WechatView(View):
             tmp["app"] = item[2]
             tmp["brand"] = item[4]
             tmp['days'] = item[7]
+            tmp['sum_day'] = item[8]
             data_list.append(tmp)
 
         return data_list

@@ -124,15 +124,27 @@ class wechat:
             app = item.get(0, 0)
             game = item.get(1, 0)
             brand = item.get(2, 0)
-            sql = "insert into wechat_month_asy(users, app, game, brand, create_time, days) values(%s,%s,%s,%s,%s,%s)"
+            sql = "insert into wechat_month_asy(users, app, game, brand, create_time, days, sum_day) values(%s,%s,%s,%s,%s,%s,%s)"
             sql1 = "SELECT users,days from wechat_month_asy where users='{u}' and days='{days}'"
+            sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}'"
+            sql_sum_day = sql_sum_day.format(username=user, start_days=start_days, end_days=end_days)
             sql1 = sql1.format(u=user, days=days)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            params = [user, app, game, brand, ts, days]
+            sum_day = self.fetch_all(sql_sum_day)
+
+            if sum_day:
+                for sum_d in sum_day:
+                    if len(sum_d) > 0:
+                        sum_day = list(sum_d)[0]
+                    else:
+                        sum_day = 0
+            else:
+                sum_day = 0
+            params = [user, app, game, brand, ts, days, sum_day]
             has_exist = self.fetch_all(sql1)
             if has_exist:
-                sql_update = "UPDATE wechat_month_asy SET app='{app}',game='{game}',brand='{brand}',update_time=NOW() where `users`='{usr}' and `days`='{days}';"
-                sql_update = sql_update.format(app=app, game=game, brand=brand, usr=user, days=days)
+                sql_update = "UPDATE wechat_month_asy SET app='{app}',game='{game}',brand='{brand}',sum_day='{sum_day}',update_time=NOW() where `users`='{usr}' and `days`='{days}';"
+                sql_update = sql_update.format(app=app, game=game, brand=brand, usr=user, days=days, sum_day=sum_day)
                 self.update_month(sql_update)
                 print(user, " 更新成功！！")
             else:
