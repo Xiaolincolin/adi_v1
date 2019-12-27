@@ -29,23 +29,35 @@
                 </div>
                 {% csrf_token %}
             </div>
-            <button class="layui-btn layui-btn-warm" style="left: 200px;margin-left: 35%;" id="export">
+            <button class="layui-btn layui-btn-warm" style="left: 200px;margin-left: 27%;" id="export">
                 <i class="iconfont icon-tingyong"></i> 导出
+            </button>
+            <button class="layui-btn layui-btn-warm"  style="left: 200px;;" id="format_export">
+                <i class="iconfont icon-tingyong"></i> 格式化导出
             </button>
         </div>
 
     </div>
     <div class="layui-card-body">
-
         <table class="layui-hide" id="demo"></table>
     </div>
 </div>
 
 </div>
+<div class="layui-form" style="display: none" id="download_data">
+    <div class="layui-inline">
+      <label class="layui-form-label">年月选择器</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" id="test31" placeholder="yyyy-MM">
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="{% static 'layuiadmin/layui/layui.js' %}"></script>
 <script>
     var this_month = {{ this_month|safe }}
+
     layui.use('table', function () {
             var table = layui.table;
             var $ = layui.jquery;
@@ -126,7 +138,22 @@
         });
     }
 
-</script>
+    layui.use('jquery',function () {
+        var $ = layui.jquery;
+        $("#format_export").click(function () {
+            layer.confirm('您是如何看待前端开发？', {
+                  btn: ['重要','奇葩'] //按钮
+                }, function(){
+                  layer.msg('的确很重要', {icon: 1});
+                }, function(){
+                  layer.msg('也可以这样', {
+                    time: 20000, //20s后自动关闭
+                    btn: ['明白了', '知道了']
+                  });
+                });
+        });
+    });
 
+</script>
 </body>
 </html>

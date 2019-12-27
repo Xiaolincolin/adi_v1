@@ -9,15 +9,102 @@ from w3lib.util import to_unicode
 import ast
 import datetime
 from django.db import connection
-user_dict = {
-    '17056225301':'徐小林',
+import redis
 
+rdp_local = redis.ConnectionPool(host='127.0.0.1', port=6379, db=6)
+rdc_local = redis.StrictRedis(connection_pool=rdp_local)
+media_dict = {
+    "360浏览器": "46",
+    "hao123": "50",
+    "IT之家": "41",
+    "pptv": "23",
+    "QQ浏览器": "54",
+    "QQ空间": "75",
+    "TapTap": "87",
+    "UC头条": "5",
+    "UC浏览器": "57",
+    "vivo浏览器": "71",
+    "wifi万能钥匙": "10",
+    "zaker": "37",
+    "一点资讯": "17",
+    "东方头条": "42",
+    "中关村在线": "44",
+    "中华万年历": "74",
+    "中央天气预报": "70",
+    "乐视视频": "24",
+    "今日十大热点": "27",
+    "今日头条": "1",
+    "今日影视大全": "73",
+    "今日要看": "48",
+    "优酷视频": "6",
+    "凤凰新闻": "14",
+    "凤凰视频": "19",
+    "华为浏览器": "79",
+    "咪咕影院": "51",
+    "bilibili": "32",
+    "唔哩头条": "67",
+    "土豆视频": "34",
+    "墨迹天气": "20",
+    "天天快报": "9",
+    "好奇心日报": "38",
+    "好看视频": "56",
+    "小米浏览器": "72",
+    "小米画报": "83",
+    "小米视频": "84",
+    "引力资讯": "69",
+    "微信-公众号": "89",
+    "微信-小程序": "85",
+    "微信-朋友圈": "53",
+    "快手": "66",
+    "悦头条": "40",
+    "懂球帝": "18",
+    "抖音": "33",
+    "搜狐新闻": "16",
+    "搜狐视频": "39",
+    "搜狗搜索": "30",
+    "搜狗浏览器": "26",
+    "斗鱼": "86",
+    "新浪体育": "25",
+    "新浪微博": "49",
+    "新浪新闻": "11",
+    "新浪财经": "12",
+    "最右": "77",
+    "段友": "78",
+    "汽车之家": "29",
+    "波波视频": "47",
+    "火山小视频": "58",
+    "爱奇艺视频": "8",
+    "爱看": "65",
+    "猎豹浏览器": "21",
+    "猎豹清理大师": "76",
+    "球球视频": "36",
+    "界面新闻": "28",
+    "百度": "4",
+    "百度浏览器": "31",
+    "百度视频": "35",
+    "百度贴吧": "55",
+    "皮皮搞笑": "82",
+    "皮皮虾": "81",
+    "知乎": "80",
+    "米尔军事": "59",
+    "糗事百科": "60",
+    "网易新闻": "2",
+    "腾讯QQ": "88",
+    "腾讯新闻": "3",
+    "腾讯视频": "7",
+    "虎扑": "22",
+    "西瓜视频": "15",
+    "豆瓣": "52",
+    "趣头条": "13",
+    "遨游浏览器": "45",
+    "风行视频": "43",
 }
+
 
 # Create your views here.
 
 class ClassifyView(View):
-    #主页，index
+    # 主页，index
     def get(self, request):
         return render(request, 'index.html', {})
 
@@ -113,38 +200,72 @@ class FormView(View):
 class StatisticsView(View):
     # 媒体数据监测
     def get(self, request):
-        result = {}
+        result = self.index_data('app_statistics')
+        android_list, ios_list, sum_data = self.get_per_hour(0)
+        return render(request, "console.html", {
+            'data': json.dumps(result),
+            'hour_android_list': android_list,
+            'hour_ios_list': ios_list,
+            'hour_sum_data': sum_data,
+        })
+
+    def get_per_hour(self, media_id):
+        android_list = []
+        ios_list = []
+        sum_data = []
+        hour = datetime.datetime.now().hour
+        for i in range(0, int(hour) + 1):
+            key_android = str(media_id) + ":" + "1:" + str(i)
+            key_ios = str(media_id) + ":" + "2:" + str(i)
+            data_android = rdc_local.get(key_android)
+            data_ios = rdc_local.get(key_ios)
+            if data_android:
+                android_list.append(int(data_android))
+            else:
+                data_android = 0
+                android_list.append(data_android)
+            if data_ios:
+                ios_list.append(int(data_ios))
+            else:
+                data_ios = 0
+                ios_list.append(data_ios)
+            sum_data.append(int(data_android) + int(data_ios))
+
+        return android_list, ios_list, sum_data
+
+    def index_data(self, table_name):
         date_list = []
         android_data_list = []
         ios_data_list = []
         sum_data = []
-        media_name = "天天快报"
         end_days = str(datetime.date.today())
         start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
-        sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
-        sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
+        sql = "SELECT days,ua,SUM(data_volume) as sum_data from table_name_tmp where (days BETWEEN '{start_days}' and '{end_days}')and ua=1  GROUP BY days  UNION SELECT days,ua,SUM(data_volume) as sum_data from table_name_tmp where (days BETWEEN '{start_days}' and '{end_days}') and ua=2  GROUP BY days ORDER BY days"
+        sql = sql.format(start_days=start_days, end_days=end_days).replace("table_name_tmp", table_name)
         result = self.fetch_one(sql)
-        for item in result:
-            if len(item) == 7:
-                dt = item[4]
-                ua = item[2]
-                data = item[3]
-                if dt not in date_list:
-                    date_list.append(item[4])
-                if ua == "1":
-                    android_data_list.append(data)
-                else:
-                    ios_data_list.append(data)
-        if len(android_data_list) == (len(ios_data_list)):
-            for i in range(0, len(android_data_list)):
-                sum_data.append(android_data_list[i] + ios_data_list[i])
+
+        if result:
+            for item in result:
+                if len(item) == 3:
+                    dt = item[0]
+                    ua = item[1]
+                    data = int(item[2])
+                    if dt not in date_list:
+                        date_list.append(dt)
+                    if ua == "1":
+                        android_data_list.append(data)
+                    else:
+                        ios_data_list.append(data)
+            if len(android_data_list) == (len(ios_data_list)):
+                for i in range(0, len(android_data_list)):
+                    sum_data.append(android_data_list[i] + ios_data_list[i])
         result = {
             "date_list": date_list,
             "android_data_list": android_data_list,
             "ios_data_list": ios_data_list,
             "sum_data": sum_data,
         }
-        return render(request, "console.html", {'data': json.dumps(result)})
+        return result
 
     def post(self, request):
         # ua= 1 andrio 2 ios
@@ -180,12 +301,17 @@ class StatisticsView(View):
         if len(android_data_list) == (len(ios_data_list)):
             for i in range(0, len(android_data_list)):
                 sum_data.append(android_data_list[i] + ios_data_list[i])
+        media_id = media_dict[media_name]
+        android_list, ios_list, hour_sum_data = self.get_per_hour(media_id)
         result = {
             "result": {
                 'date_list': date_list,
                 "android_data_list": android_data_list,
                 "ios_data_list": ios_data_list,
                 "sum_data": sum_data,
+                'hour_android_list': android_list,
+                'hour_ios_list': ios_list,
+                'hour_sum_data': hour_sum_data,
             }
         }
         # print(result)
@@ -315,3 +441,11 @@ class WechatView(View):
             data_list.append(tmp)
 
         return data_list
+
+
+class DownloadView(View):
+    def get(self):
+        pass
+
+    def post(self):
+        pass
