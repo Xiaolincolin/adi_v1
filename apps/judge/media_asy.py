@@ -1,4 +1,6 @@
 import datetime
+import time
+
 import pymysql
 
 from DBUtils.PooledDB import PooledDB
@@ -184,12 +186,10 @@ def yesterday_to_mysql():
             insert_data(sql, ios_param)
             android_param = [name, '1', android_sum, days, ts, ts]
             insert_data(sql, android_param)
-            print(name + "同步完成！")
+            print("游戏:"+name + "同步完成！")
         except Exception as e:
-            print(name + "报错了~")
+            print("游戏:"+name + "报错了~")
             print(e)
-    conn.commit()
-    conn.close()
 
 
 def a_month_asn():
@@ -215,8 +215,6 @@ def a_month_asn():
             except Exception as e:
                 print(name + "报错了~")
                 print(e)
-    conn.commit()
-    conn.close()
 
 
 def app_yesterday_to_mysql():
@@ -238,18 +236,16 @@ def app_yesterday_to_mysql():
             insert_data(sql, ios_param)
             android_param = [name, '1', android_sum, days, ts, ts]
             insert_data(sql, android_param)
-            print(name + "同步完成！")
+            print("应用:"+name + "同步完成！")
         except Exception as e:
-            print(name + "报错了~")
+            print("应用:"+name + "报错了~")
             print(e)
-    conn.commit()
-    conn.close()
 
 
 def app_a_month_asn():
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     today = str(datetime.date.today())
-    for i in range(2, 30):
+    for i in range(1, 10):
         print("正在同步第" + str(i) + "天")
         days = (datetime.date.today() + datetime.timedelta(days=-i)).strftime("%Y-%m-%d")
         for name in media_name:
@@ -269,14 +265,34 @@ def app_a_month_asn():
             except Exception as e:
                 print(name + "报错了~")
                 print(e)
-    conn.commit()
-    conn.close()
 
 
 import numpy
 
 if __name__ == '__main__':
-    # a_month_asn()
-    yesterday_to_mysql()
-    # app_yesterday_to_mysql()
-    # app_a_month_asn()
+    try:
+        # a_month_asn()
+        yesterday_to_mysql()
+    except Exception as e:
+        print("第一次失败：", e)
+        time.sleep(10)
+        try:
+            print("重试！！！！")
+            yesterday_to_mysql()
+        except Exception as e:
+            print("第二次失败：",e)
+
+    try:
+        app_yesterday_to_mysql()
+        # app_a_month_asn()
+    except Exception as e:
+        print("第次失败：",e)
+        time.sleep(10)
+        try:
+            print("重试！！！！")
+            app_yesterday_to_mysql()
+        except Exception as e:
+            print("第二次失败：", e)
+    finally:
+        conn.commit()
+        conn.close()
