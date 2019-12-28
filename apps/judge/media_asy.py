@@ -299,5 +299,7 @@ if __name__ == '__main__':
         except Exception as e:
             print("第二次失败：", e)
     finally:
+        conn1.commit()
         conn.commit()
+        conn1.close()
         conn.close()
