@@ -469,7 +469,7 @@
 
         <div class="layui-col-md4">
             <div class="layui-card">
-                <div class="layui-card-header">选择类型</div>
+                <div class="layui-card-header">选择查看类型</div>
                 <div class="layui-card-body layui-text">
                     <table class="layui-table">
                         <colgroup>
@@ -492,7 +492,26 @@
                     </table>
                 </div>
             </div>
+            <div class="layui-card">
+                <div class="layui-card-header">查看所有媒体总量</div>
+                <div class="layui-card-body layui-text">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col>
+                        </colgroup>
+                        <tbody>
 
+                        <tr>
+                            <td style="padding-bottom: 0;">
+                                <div class="layui-btn-container ">
+                                    <button type="button" class="layui-btn layui-btn-fluid layui-col-xs3">所有媒体</button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="layui-card">
                 <div class="layui-card-header">效果报告</div>
                 <div class="layui-card-body layadmin-takerates">
@@ -572,7 +591,6 @@
                 hour_android_list = result['hour_android_list'];
                 hour_ios_list = result['hour_ios_list'];
                 hour_sum_data = result['hour_sum_data'];
-                console.log(hour_ios_list);
                 aj();
             },
             error: function () {
@@ -581,7 +599,6 @@
         });
 
     });
-
 
 </script>
 
