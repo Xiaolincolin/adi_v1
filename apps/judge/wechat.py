@@ -166,5 +166,7 @@ if __name__ == '__main__':
         we.asy_month_data()
     except Exception as e:
         print(e)
+    conn1.commit()
     conn.commit()
+    conn1.close()
     conn.close()
