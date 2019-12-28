@@ -11,6 +11,7 @@ pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
 conn = pool.connection()
+
 media_name = {
     "360浏览器": "46",
     "hao123": "50",

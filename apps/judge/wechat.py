@@ -9,6 +9,10 @@ pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
                 database='adinsights_v3', charset='utf8')
 conn = pool.connection()
 
+pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
+                password='Adi_mysql',
+                database='adi', charset='utf8')
+conn1 = pool1.connection()
 
 class wechat:
     def __init__(self):
@@ -81,11 +85,11 @@ class wechat:
         return raw
 
     def update_month(self, sql):
-        cursor = conn.cursor()
+        cursor = conn1.cursor()
         cursor.execute(sql)
 
     def insert_data(self, sql, param):
-        cursor = conn.cursor()
+        cursor = conn1.cursor()
         cursor.execute(sql, param)
 
     def asy_data(self):

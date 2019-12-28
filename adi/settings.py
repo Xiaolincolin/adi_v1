@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'adi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'adinsights_v3',
-        'USER': 'adi',
+        'NAME': 'adi',
+        'USER': 'root',
         'PASSWORD': 'Adi_mysql',
-        'HOST': 'rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com',
+        'HOST': '192.168.168.83',
         # 'OPTIONS': {
         #     "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
         #     'sql_mode': 'traditional',
