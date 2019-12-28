@@ -28,56 +28,31 @@ layui.define(function (e) {
                     a = layui.carousel,
                     i = layui.echarts,
                     l = [],
-                    n = [{
-                        title: {
-                            text: "媒体趋势",
-                            x: "center",
-                            textStyle: {
-                                fontSize: 14
-                            }
-                        },
-                        tooltip: {
-                            trigger: "axis"
-                        },
-                        legend: {
-                            data: ["", ""]
-                        },
-                        xAxis: [{
-                            type: "category",
-                            boundaryGap: !1,
-                            data: ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
-                        }],
-                        yAxis: [{
-                            type: "value"
-                        }],
-                        series: [{
-                            name: "总量",
-                            type: "line",
-                            smooth: !0,
-                            itemStyle: {
-                                normal: {
-                                    areaStyle: {
-                                        type: "default"
-                                    }
+                    n = [
+                        {
+                            title: {
+                                text: "媒体趋势",
+                                x: "center",
+                                textStyle: {
+                                    fontSize: 14
                                 }
                             },
-                            data: [111, 222, 333, 444, 555, 666, 3333, 33333, 55555, 66666, 33333, 3333, 6666, 11888, 26666, 38888, 56666, 42222, 39999, 28888, 17777, 9666, 6555, 5555, 3333, 2222, 3111, 6999, 5888, 2777, 1666, 999, 888, 777]
-                        },
-                            {
-                                name: "android",
-                                type: "line",
-                                smooth: !0,
-                                itemStyle: {
-                                    normal: {
-                                        areaStyle: {
-                                            type: "default"
-                                        }
-                                    }
-                                },
-                                data: [102, 343, 542, 576, 555, 532, 466, 4657, 235, 5456, 768, 235, 6453, 11888, 26666, 38888, 56666, 42222, 39999, 28888, 17777, 9666, 6555, 5555, 3333, 2222, 3111, 6999, 5888, 2777, 1666, 999, 888, 777]
+                            tooltip: {
+                                trigger: "axis"
                             },
-                            {
-                                name: "ios",
+                            legend: {
+                                data: ["", ""]
+                            },
+                            xAxis: [{
+                                type: "category",
+                                boundaryGap: !1,
+                                data: ["06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"]
+                            }],
+                            yAxis: [{
+                                type: "value"
+                            }],
+                            series: [{
+                                name: "总量",
                                 type: "line",
                                 smooth: !0,
                                 itemStyle: {
@@ -87,9 +62,35 @@ layui.define(function (e) {
                                         }
                                     }
                                 },
-                                data: [11, 22, 33, 44, 55, 66, 333, 3333, 5555, 12666, 3333, 333, 666, 1188, 2666, 3888, 6666, 4222, 3999, 2888, 1777, 966, 655, 555, 333, 222, 311, 699, 588, 277, 166, 99, 88, 77]
-                            }]
-                    },
+                                data: [111, 222, 333, 444, 555, 666, 3333, 33333, 55555, 66666, 33333, 3333, 6666, 11888, 26666, 38888, 56666, 42222, 39999, 28888, 17777, 9666, 6555, 5555, 3333, 2222, 3111, 6999, 5888, 2777, 1666, 999, 888, 777]
+                            },
+                                {
+                                    name: "android",
+                                    type: "line",
+                                    smooth: !0,
+                                    itemStyle: {
+                                        normal: {
+                                            areaStyle: {
+                                                type: "default"
+                                            }
+                                        }
+                                    },
+                                    data: [102, 343, 542, 576, 555, 532, 466, 4657, 235, 5456, 768, 235, 6453, 11888, 26666, 38888, 56666, 42222, 39999, 28888, 17777, 9666, 6555, 5555, 3333, 2222, 3111, 6999, 5888, 2777, 1666, 999, 888, 777]
+                                },
+                                {
+                                    name: "ios",
+                                    type: "line",
+                                    smooth: !0,
+                                    itemStyle: {
+                                        normal: {
+                                            areaStyle: {
+                                                type: "default"
+                                            }
+                                        }
+                                    },
+                                    data: [11, 22, 33, 44, 55, 66, 333, 3333, 5555, 12666, 3333, 333, 666, 1188, 2666, 3888, 6666, 4222, 3999, 2888, 1777, 966, 655, 555, 333, 222, 311, 699, 588, 277, 166, 99, 88, 77]
+                                }]
+                        },
                         {
                             title: {
                                 text: "访客浏览器分布",
@@ -135,150 +136,134 @@ layui.define(function (e) {
                             }]
                         },
                         {
-                            backgroundColor: "#113A71",
                             title: {
-                                text: '所有媒体小时趋势',
-                                left: '38%',
-                                top: '5%',
+                                text: '',
+                                x: 'center',
+                                y: 0,
                                 textStyle: {
-                                    fontSize: '15',
-                                    color: "#fff"
-                                }
-                            },
-                            "tooltip": {
-                                "trigger": "axis",
-                                "axisPointer": {
-                                    "type": "shadow",
-                                    textStyle: {
-                                        color: "#fff"
-                                    }
-
+                                    color: '#B4B4B4',
+                                    fontSize: 16,
+                                    fontWeight: 'normal',
                                 },
+
                             },
-                            grid: {
-                                top: '10%',
-                                bottom: '15%',
-                                left: '10%',
-                                right: '10%',
+                            backgroundColor: '#043065',
+                            tooltip: {
+                                trigger: 'axis',
+                                backgroundColor: 'rgba(255,255,255,0.1)',
+                                axisPointer: {
+                                    type: 'shadow',
+                                    label: {
+                                        show: true,
+                                        backgroundColor: '#7B7DDC'
+                                    }
+                                }
                             },
                             legend: {
-                                data: ['android', 'ios'],
-                                align: 'right',
-                                top: '12%',
-                                right: '43%',
+                                data: ['ios', 'android', '总数',],
                                 textStyle: {
-                                    color: '#FFFFFF'
-                                }
-
+                                    color: '#B4B4B4'
+                                },
+                                top: '7%',
                             },
-                            "calculable": true,
-                            "xAxis": [{
-                                "type": "category",
-                                "axisLine": {
+                            grid: {
+                                x: '12%',
+                                width: '82%',
+                                y: '12%',
+                            },
+                            xAxis: {
+                                data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                                axisLine: {
                                     lineStyle: {
-                                        color: '#000'
+                                        color: '#B4B4B4'
                                     }
                                 },
-                                "splitLine": {
-                                    "show": false
+                                axisTick: {
+                                    show: false,
                                 },
-                                "axisTick": {
-                                    "show": false
-                                },
-                                "splitArea": {
-                                    "show": false
-                                },
-                                "axisLabel": {
-                                    "interval": 0,
-                                    textStyle: {
-                                        fontSize: 10,
-                                        color: '#ffffff'
+                            },
+                            yAxis: [{
+
+                                splitLine: {show: false},
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#B4B4B4',
                                     }
                                 },
-                                "data": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-                            }],
-                            yAxis: [
-                                {
-                                    type: 'value',
-                                    name: '',
-                                    min: 0,
-                                    position: 'left',
-                                    axisLine: {
-                                        lineStyle: {
-                                            color: '#ffffff'
-                                        }
-                                    },
-                                    axisLabel: {
-                                        formatter: '{value} '
-                                    }
-                                },
-                                {
-                                    type: 'value',
-                                    name: '',
-                                    position: 'right',
-                                    axisLine: {
-                                        lineStyle: {
-                                            color: '#ffffff'
-                                        }
-                                    },
-                                    axisLabel: {
-                                        formatter: '{value} %'
-                                    }
+
+                                axisLabel: {
+                                    formatter: '{value} ',
                                 }
-                            ],
-                            series: [
+                            },
                                 {
-                                    "name": "android",
-                                    "type": "bar",
-                                    "stack": "总量",
-                                    "barMaxWidth": 15,
-                                    "barGap": "10%",
-                                    "itemStyle": {
-                                        "normal": {
-                                            "color": "#06a7ef",
-                                            "label": {
-                                                "show": true,
-                                                "textStyle": {
-                                                    "color": "#fff"
-                                                },
-                                                "position": "insideTop",
-                                                formatter: function (p) {
-                                                    return p.value > 0 ? (p.value) : '';
-                                                }
-                                            }
+
+                                    splitLine: {show: false},
+                                    axisLine: {
+                                        lineStyle: {
+                                            color: '#B4B4B4',
                                         }
                                     },
-                                    data: [1234, 1244, 1254, 1294, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000, 26000, 27000, 28000, 29000, 30000, 31000, 33000]
+                                    axisLabel: {
+                                        formatter: '{value} ',
+                                    }
+                                }],
 
+                            series: [{
+                                name: '总数',
+                                type: 'line',
+                                smooth: true,
+                                showAllSymbol: true,
+                                symbol: 'emptyCircle',
+                                symbolSize: 8,
+                                yAxisIndex: 1,
+                                itemStyle: {
+                                    normal: {
+                                        color: '#F02FC2'
+                                    },
                                 },
-                                {
-                                    "name": "ios",
-                                    "type": "bar",
-                                    "stack": "总量",
-                                    "itemStyle": {
-                                        "normal": {
-                                            "color": "#d872f3",
-                                            "barBorderRadius": 0,
-                                            "label": {
-                                                "show": true,
-                                                "position": "top",
-                                                formatter: function (p) {
-                                                    return p.value > 0 ? (p.value) : '';
-                                                }
-                                            }
+                                data: []
+                            },
 
-                                            /*normal:{
-                                            color:new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                                offset: 0,
-                                                color: '#00b0ff'
-                                            }, {
-                                                offset: 0.8,
-                                                color: '#7052f4'
-                                            }], false)}*/
+                                {
+                                    name: 'ios',
+                                    type: 'bar',
+                                    barWidth: 10,
+                                    itemStyle: {
+                                        normal: {
+                                            barBorderRadius: 5,
+                                            color: new echarts.graphic.LinearGradient(
+                                                0, 0, 0, 1,
+                                                [
+                                                    {offset: 0, color: '#956FD4'},
+                                                    {offset: 1, color: '#3EACE5'}
+                                                ]
+                                            )
                                         }
                                     },
-                                    data: [12340, 1244, 1254, 1294, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000, 26000, 27000, 28000, 29000, 30000, 31000, 33000]
+                                    data: []
+                                },
 
+                                {
+                                    name: 'android',
+                                    type: 'bar',
+                                    barGap: '-100%',
+                                    barWidth: 10,
+                                    itemStyle: {
+                                        normal: {
+                                            barBorderRadius: 5,
+                                            color: new echarts.graphic.LinearGradient(
+                                                0, 0, 0, 1,
+                                                [
+                                                    {offset: 0, color: 'rgba(156,107,211,0.5)'},
+                                                    {offset: 0.2, color: 'rgba(156,107,211,0.3)'},
+                                                    {offset: 1, color: 'rgba(156,107,211,0)'}
+                                                ]
+                                            )
+                                        }
+                                    },
+                                    z: -12,
+
+                                    data: []
                                 },
                             ]
                         }
@@ -295,8 +280,9 @@ layui.define(function (e) {
                             n[0].series[2].data = ios_data_list;
                         }
                         n[2].title.text = media_name + "小时趋势图" + "(" + report_type + ")";
-                        n[2].series[0].data = hour_android_list;
+                        n[2].series[0].data = hour_sum_data;
                         n[2].series[1].data = hour_ios_list;
+                        n[2].series[2].data = hour_android_list;
 
 
                         l[e].setOption(n[e], true),
