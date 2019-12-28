@@ -64,13 +64,13 @@
           </li>
           <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;">
-              <cite>adi</cite>
+              <cite>{{ user }}</cite>
             </a>
             <dl class="layui-nav-child">
               <dd><a lay-href="set/user/info.html">基本资料</a></dd>
               <dd><a lay-href="set/user/password.html">修改密码</a></dd>
               <hr>
-              <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+              <dd layadmin-event="" style="text-align: center;"><a href="{% url 'logout' %}">退出</a></dd>
             </dl>
           </li>
           
@@ -476,14 +476,14 @@
     index: 'lib/index' //主入口模块
   }).use('index');
   </script>
-  
+
   <!-- 百度统计 -->
   <script>
   var _hmt = _hmt || [];
   (function() {
     var hm = document.createElement("script");
     hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
-    var s = document.getElementsByTagName("script")[0]; 
+    var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
   </script>

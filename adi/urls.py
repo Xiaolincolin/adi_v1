@@ -14,13 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from apps.judge.views import ClassifyView, FormView, StatisticsView,WechatView
+from apps.judge.views import ClassifyView, FormView, StatisticsView, WechatView
+from apps.users.views import LoginView, LogoutView, TmpView
+from django.conf.urls import url
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', ClassifyView.as_view(), name="judge"),
-    path('data/', FormView.as_view(), name="data"),
-    path('fx/', StatisticsView.as_view(), name="fx"),
-    path('wechat/', WechatView.as_view(), name="wechat")
+    url(r'^admin/', admin.site.urls),
+    url(r'^$', TmpView.as_view(), name="tmp"),
+    url(r'^login$', LoginView.as_view(), name="login"),
+    url('^logout/$', LogoutView.as_view(), name="logout"),
+    url(r'^media/$', ClassifyView.as_view(), name="judge"),
+    url(r'^data/$', FormView.as_view(), name="data"),
+    url(r'^fx/$', StatisticsView.as_view(), name="fx"),
+    url(r'^wechat/$', WechatView.as_view(), name="wechat")
 ]
