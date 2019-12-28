@@ -41,7 +41,7 @@ media_dict = {
     "凤凰视频": "19",
     "华为浏览器": "79",
     "咪咕影院": "51",
-    "bilibili": "32",
+    "哔哩哔哩": "32",
     "唔哩头条": "67",
     "土豆视频": "34",
     "墨迹天气": "20",
@@ -237,6 +237,8 @@ class StatisticsView(View):
             report_type = request.POST.get("report_type", "")
             if media_name == "看点快报":
                 media_name = "天天快报"
+            if media_name == "bilibili":
+                media_name = "哔哩哔哩"
             end_days = str(datetime.date.today())
             start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
             sql = ""
