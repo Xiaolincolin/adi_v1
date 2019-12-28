@@ -106,108 +106,178 @@ media_dict = {
 class ClassifyView(View):
     # 主页，index
     def get(self, request):
-        return render(request, 'index.html', {})
+        if request.user.is_authenticated:
+            user = request.user
+            return render(request, 'index.html', {'user': user})
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
 
     def post(self, request):
-        json_data = request.POST.get("json_data", "")
-        json_dict = {"key", "value"}
-        return JsonResponse(json_dict)
+        if request.user.is_authenticated:
+            json_data = request.POST.get("json_data", "")
+            json_dict = {"key", "value"}
+            return JsonResponse(json_dict)
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
 
 
 class FormView(View):
     # 爬虫优化
     def get(self, request):
-        return render(request, "article-list.html", {})
+        if request.user.is_authenticated:
+            return render(request, "article-list.html", {})
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
 
     def post(self, request):
-        zc = zerorpc.Client()
-        zc.connect('tcp://39.104.76.66:8787')
-        json_data = request.POST.get("json_data", "")
-        lines = str(json_data).split("\n")
+        if request.user.is_authenticated:
+            zc = zerorpc.Client()
+            zc.connect('tcp://39.104.76.66:8787')
+            json_data = request.POST.get("json_data", "")
+            lines = str(json_data).split("\n")
 
-        # 去重前总量
-        repeated_sum = len(lines)
-        start_time = "00:00:00"
-        end_time = "00:00:00"
-        repeated = []
-        err_line = []
-        repeated_dict = {"1": 0, "2": 0}
-        remover_repeated_dict = {"1": 0, "2": 0}
-        for index, line in enumerate(lines):
-            if "android" or "ios" in line:
-                tmp = {}
-                line = line.split()
-                if len(line) == 9:
-                    if index == 0:
-                        start_time = line[1]
-                    if index == repeated_sum - 1:
-                        end_time = line[1]
-                    creative = line[8]
-                    repeated.append(creative)
-                elif len(line) > 9:
-                    if index == 0:
-                        start_time = line[1]
-                    if index == repeated_sum - 1:
-                        end_time = line[1]
-                    creative = ''.join(line[8:])
-                    repeated.append(creative)
+            # 去重前总量
+            repeated_sum = len(lines)
+            start_time = "00:00:00"
+            end_time = "00:00:00"
+            repeated = []
+            err_line = []
+            repeated_dict = {"1": 0, "2": 0}
+            remover_repeated_dict = {"1": 0, "2": 0}
+            for index, line in enumerate(lines):
+                if "android" or "ios" in line:
+                    tmp = {}
+                    line = line.split()
+                    if len(line) == 9:
+                        if index == 0:
+                            start_time = line[1]
+                        if index == repeated_sum - 1:
+                            end_time = line[1]
+                        creative = line[8]
+                        repeated.append(creative)
+                    elif len(line) > 9:
+                        if index == 0:
+                            start_time = line[1]
+                        if index == repeated_sum - 1:
+                            end_time = line[1]
+                        creative = ''.join(line[8:])
+                        repeated.append(creative)
+                    else:
+                        err_line.append(index + 1)
                 else:
                     err_line.append(index + 1)
-            else:
-                err_line.append(index + 1)
 
-        # 去重
-        remover_repeated = list(set(repeated))
-        remove_sum = len(remover_repeated)
+            # 去重
+            remover_repeated = list(set(repeated))
+            remove_sum = len(remover_repeated)
 
-        # 去重前游戏应用分类
-        for ad in repeated:
-            type_name = zc.predict(to_unicode(ad))
-            if type_name == "游戏":
-                repeated_dict["1"] += 1
-            else:
-                repeated_dict["2"] += 1
-        # 去重后游戏应用分类
-        for ad in remover_repeated:
-            type_name = zc.predict(to_unicode(ad))
-            if type_name == "游戏":
-                remover_repeated_dict["1"] += 1
-            else:
-                remover_repeated_dict["2"] += 1
-        # 计算运行时间
-        start_date = datetime.datetime.strptime(str(start_time), '%H:%M:%S')
-        end_date = datetime.datetime.strptime(str(end_time), '%H:%M:%S')
-        run_time = str(end_date - start_date)
-        result = {
-            'sum': {
-                "repeated": repeated_sum,
-                "remove_repeated": remove_sum
-            },
-            "time": {
-                'start_time': start_time,
-                "end_time": end_time,
-                "run_time": run_time
-            },
-            "result": {
-                "repeated_dict": repeated_dict,
-                "remover_repeated_dict": remover_repeated_dict,
-            },
-            "err_line": err_line
-        }
-        return JsonResponse(result, safe=False)
+            # 去重前游戏应用分类
+            for ad in repeated:
+                type_name = zc.predict(to_unicode(ad))
+                if type_name == "游戏":
+                    repeated_dict["1"] += 1
+                else:
+                    repeated_dict["2"] += 1
+            # 去重后游戏应用分类
+            for ad in remover_repeated:
+                type_name = zc.predict(to_unicode(ad))
+                if type_name == "游戏":
+                    remover_repeated_dict["1"] += 1
+                else:
+                    remover_repeated_dict["2"] += 1
+            # 计算运行时间
+            start_date = datetime.datetime.strptime(str(start_time), '%H:%M:%S')
+            end_date = datetime.datetime.strptime(str(end_time), '%H:%M:%S')
+            run_time = str(end_date - start_date)
+            result = {
+                'sum': {
+                    "repeated": repeated_sum,
+                    "remove_repeated": remove_sum
+                },
+                "time": {
+                    'start_time': start_time,
+                    "end_time": end_time,
+                    "run_time": run_time
+                },
+                "result": {
+                    "repeated_dict": repeated_dict,
+                    "remover_repeated_dict": remover_repeated_dict,
+                },
+                "err_line": err_line
+            }
+            return JsonResponse(result, safe=False)
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
 
 
 class StatisticsView(View):
     # 媒体数据监测
     def get(self, request):
-        result = self.index_data('app_statistics')
-        android_list, ios_list, sum_data = self.get_per_hour(0)
-        return render(request, "console.html", {
-            'data': json.dumps(result),
-            'hour_android_list': android_list,
-            'hour_ios_list': ios_list,
-            'hour_sum_data': sum_data,
-        })
+        if request.user.is_authenticated:
+            result = self.index_data('app_statistics')
+            android_list, ios_list, sum_data = self.get_per_hour(0)
+            return render(request, "console.html", {
+                'data': json.dumps(result),
+                'hour_android_list': android_list,
+                'hour_ios_list': ios_list,
+                'hour_sum_data': sum_data,
+            })
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
+
+    def post(self, request):
+        # ua= 1 andrio 2 ios
+        if request.user.is_authenticated:
+            result = {}
+            date_list = []
+            android_data_list = []
+            ios_data_list = []
+            sum_data = []
+            media_name = request.POST.get("media_name", "")
+            report_type = request.POST.get("report_type", "")
+            if media_name == "看点快报":
+                media_name = "天天快报"
+            end_days = str(datetime.date.today())
+            start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
+            sql = ""
+            if report_type == "game":
+                sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+            elif report_type == "app":
+                sql = "select * from app_statistics_app where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+            sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
+            result = self.fetch_one(sql)
+            for item in result:
+                if len(item) == 7:
+                    dt = item[4]
+                    ua = item[2]
+                    data = item[3]
+                    if dt not in date_list:
+                        date_list.append(item[4])
+                    if ua == "1":
+                        android_data_list.append(data)
+                    else:
+                        ios_data_list.append(data)
+            if len(android_data_list) == (len(ios_data_list)):
+                for i in range(0, len(android_data_list)):
+                    sum_data.append(android_data_list[i] + ios_data_list[i])
+            media_id = media_dict[media_name]
+            android_list, ios_list, hour_sum_data = self.get_per_hour(media_id)
+            result = {
+                "result": {
+                    'date_list': date_list,
+                    "android_data_list": android_data_list,
+                    "ios_data_list": ios_data_list,
+                    "sum_data": sum_data,
+                    'hour_android_list': android_list,
+                    'hour_ios_list': ios_list,
+                    'hour_sum_data': hour_sum_data,
+                }
+            }
+            # print(result)
+
+            return JsonResponse(result, safe=False)
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
 
     def get_per_hour(self, media_id):
         android_list = []
@@ -266,57 +336,6 @@ class StatisticsView(View):
             "sum_data": sum_data,
         }
         return result
-
-    def post(self, request):
-        # ua= 1 andrio 2 ios
-        result = {}
-        date_list = []
-        android_data_list = []
-        ios_data_list = []
-        sum_data = []
-        media_name = request.POST.get("media_name", "")
-        report_type = request.POST.get("report_type", "")
-        if media_name == "看点快报":
-            media_name = "天天快报"
-        end_days = str(datetime.date.today())
-        start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
-        sql = ""
-        if report_type == "game":
-            sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
-        elif report_type == "app":
-            sql = "select * from app_statistics_app where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
-        sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
-        result = self.fetch_one(sql)
-        for item in result:
-            if len(item) == 7:
-                dt = item[4]
-                ua = item[2]
-                data = item[3]
-                if dt not in date_list:
-                    date_list.append(item[4])
-                if ua == "1":
-                    android_data_list.append(data)
-                else:
-                    ios_data_list.append(data)
-        if len(android_data_list) == (len(ios_data_list)):
-            for i in range(0, len(android_data_list)):
-                sum_data.append(android_data_list[i] + ios_data_list[i])
-        media_id = media_dict[media_name]
-        android_list, ios_list, hour_sum_data = self.get_per_hour(media_id)
-        result = {
-            "result": {
-                'date_list': date_list,
-                "android_data_list": android_data_list,
-                "ios_data_list": ios_data_list,
-                "sum_data": sum_data,
-                'hour_android_list': android_list,
-                'hour_ios_list': ios_list,
-                'hour_sum_data': hour_sum_data,
-            }
-        }
-        # print(result)
-
-        return JsonResponse(result, safe=False)
 
     def fetch_one(self, sql):
         cursor = connection.cursor()
@@ -380,24 +399,30 @@ class StatisticsView(View):
 
 
 class WechatView(View):
-    def get(self, requests):
-        year = datetime.datetime.now().year
-        month = datetime.datetime.now().month
-        this_month = str(year) + "-" + str(month)
-        a_month_data = self.get_month_data(this_month)
-        return render(requests, "role.html", {"this_month": json.dumps(a_month_data)})
-
-    def post(self, requests):
-        click_time = requests.POST.get("click_time", "")
-        dt_type = requests.POST.get("dt_type", "")
-        if dt_type == "m":
-            days = click_time
-            data_list = self.get_month_data(days)
-            return JsonResponse(data_list, safe=False)
+    def get(self, request):
+        if request.user.is_authenticated:
+            year = datetime.datetime.now().year
+            month = datetime.datetime.now().month
+            this_month = str(year) + "-" + str(month)
+            a_month_data = self.get_month_data(this_month)
+            return render(request, "role.html", {"this_month": json.dumps(a_month_data)})
         else:
-            days = click_time
-            data_list = self.get_one_day(days)
-            return JsonResponse(data_list, safe=False)
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            click_time = request.POST.get("click_time", "")
+            dt_type = request.POST.get("dt_type", "")
+            if dt_type == "m":
+                days = click_time
+                data_list = self.get_month_data(days)
+                return JsonResponse(data_list, safe=False)
+            else:
+                days = click_time
+                data_list = self.get_one_day(days)
+                return JsonResponse(data_list, safe=False)
+        else:
+            return render(request, 'login.html', {"msg": "请登录后查看！"})
 
     def fetch_all(self, sql):
         cursor = connection.cursor()

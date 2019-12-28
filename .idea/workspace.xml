@@ -40,21 +40,21 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../文档说明/tencent/tiantiankuaibao_omgid/ios" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\adi\static\layuiadmin\lib\extend" />
       <recent name="E:\adi\templates" />
+      <recent name="E:\adi\static\layuiadmin\lib\extend" />
       <recent name="E:\adi\static\js" />
       <recent name="E:\adi\static" />
       <recent name="E:\adi\templates\bak" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\adi\apps" />
       <recent name="E:\adi\apps\judge\media_name" />
       <recent name="E:\adi\static\admin" />
-      <recent name="E:\adi\apps" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -69,7 +69,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.media_asy">
+  <component name="RunManager" selected="Django server.adi">
     <configuration name="media_asy" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="adi" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -243,7 +243,7 @@
       <workItem from="1577083797629" duration="76000" />
       <workItem from="1577090619783" duration="29413000" />
       <workItem from="1577238993249" duration="7967000" />
-      <workItem from="1577264033523" duration="45035000" />
+      <workItem from="1577264033523" duration="54329000" />
     </task>
     <servers />
   </component>
