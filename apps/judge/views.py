@@ -235,43 +235,54 @@ class StatisticsView(View):
             sum_data = []
             media_name = request.POST.get("media_name", "")
             report_type = request.POST.get("report_type", "")
-            if media_name == "看点快报":
-                media_name = "天天快报"
-            if media_name == "bilibili":
-                media_name = "哔哩哔哩"
-            end_days = str(datetime.date.today())
-            start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
-            sql = ""
-            if report_type == "game":
-                sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
-            elif report_type == "app":
-                sql = "select * from app_statistics_app where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
-            sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
-            result = self.fetch_one(sql)
-            for item in result:
-                if len(item) == 7:
-                    dt = item[4]
-                    ua = item[2]
-                    data = item[3]
-                    if dt not in date_list:
-                        date_list.append(item[4])
-                    if ua == "1":
-                        android_data_list.append(data)
-                    else:
-                        ios_data_list.append(data)
-            if len(android_data_list) == (len(ios_data_list)):
-                for i in range(0, len(android_data_list)):
-                    sum_data.append(android_data_list[i] + ios_data_list[i])
-            media_id = media_dict[media_name]
-            android_list, ios_list, hour_sum_data = self.get_per_hour(media_id)
+            if media_name == "所有媒体":
+                if report_type == "game":
+                    result = self.index_data('app_statistics')
+                else:
+                    result = self.index_data('app_statistics_app')
+                date_list = result.get("date_list")
+                android_data_list = result.get("android_data_list")
+                ios_data_list = result.get("ios_data_list")
+                sum_data = result.get("sum_data")
+                hour_android_list, hour_ios_list, hour_sum_data = self.get_per_hour(0)
+            else:
+                if media_name == "看点快报":
+                    media_name = "天天快报"
+                if media_name == "bilibili":
+                    media_name = "哔哩哔哩"
+                end_days = str(datetime.date.today())
+                start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
+                sql = ""
+                if report_type == "game":
+                    sql = "select * from app_statistics where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+                elif report_type == "app":
+                    sql = "select * from app_statistics_app where (days BETWEEN '{start_days}' and '{end_days}') and media_name='{media_name}' ORDER BY days"
+                sql = sql.format(start_days=start_days, end_days=end_days, media_name=media_name)
+                result = self.fetch_one(sql)
+                for item in result:
+                    if len(item) == 7:
+                        dt = item[4]
+                        ua = item[2]
+                        data = item[3]
+                        if dt not in date_list:
+                            date_list.append(item[4])
+                        if ua == "1":
+                            android_data_list.append(data)
+                        else:
+                            ios_data_list.append(data)
+                if len(android_data_list) == (len(ios_data_list)):
+                    for i in range(0, len(android_data_list)):
+                        sum_data.append(android_data_list[i] + ios_data_list[i])
+                media_id = media_dict[media_name]
+                hour_android_list, hour_ios_list, hour_sum_data = self.get_per_hour(media_id)
             result = {
                 "result": {
                     'date_list': date_list,
                     "android_data_list": android_data_list,
                     "ios_data_list": ios_data_list,
                     "sum_data": sum_data,
-                    'hour_android_list': android_list,
-                    'hour_ios_list': ios_list,
+                    'hour_android_list': hour_android_list,
+                    'hour_ios_list': hour_ios_list,
                     'hour_sum_data': hour_sum_data,
                 }
             }
