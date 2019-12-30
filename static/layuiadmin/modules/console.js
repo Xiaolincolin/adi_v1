@@ -223,42 +223,29 @@ layui.define(function (e) {
                                 },
                                 data: []
                             },
-
                                 {
                                     name: 'ios',
                                     type: 'bar',
                                     barWidth: 10,
+                                    yAxisIndex: 0,
                                     itemStyle: {
                                         normal: {
                                             barBorderRadius: 5,
-                                            color: new echarts.graphic.LinearGradient(
-                                                0, 0, 0, 1,
-                                                [
-                                                    {offset: 0, color: '#956FD4'},
-                                                    {offset: 1, color: '#3EACE5'}
-                                                ]
-                                            )
+                                            color: '#956FD4'
                                         }
                                     },
                                     data: []
                                 },
-
                                 {
                                     name: 'android',
                                     type: 'bar',
-                                    barGap: '-100%',
+                                    barGap: '10%',
                                     barWidth: 10,
+                                    yAxisIndex: 0,
                                     itemStyle: {
                                         normal: {
                                             barBorderRadius: 5,
-                                            color: new echarts.graphic.LinearGradient(
-                                                0, 0, 0, 1,
-                                                [
-                                                    {offset: 0, color: 'rgba(156,107,211,0.5)'},
-                                                    {offset: 0.2, color: 'rgba(156,107,211,0.3)'},
-                                                    {offset: 1, color: 'rgba(156,107,211,0)'}
-                                                ]
-                                            )
+                                            color:'#11EE3D'
                                         }
                                     },
                                     z: -12,
