@@ -10,9 +10,10 @@ pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
 conn = pool.connection()
 
 pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
-                password='Adi_mysql',
-                database='adi', charset='utf8')
+                 password='Adi_mysql',
+                 database='adi', charset='utf8')
 conn1 = pool1.connection()
+
 
 class wechat:
     def __init__(self):
@@ -84,6 +85,12 @@ class wechat:
         raw = cursor.fetchall()
         return raw
 
+    def fetch_all_sum_day(self, sql):
+        cursor = conn1.cursor()
+        cursor.execute(sql)
+        raw = cursor.fetchall()
+        return raw
+
     def update_month(self, sql):
         cursor = conn1.cursor()
         cursor.execute(sql)
@@ -134,7 +141,7 @@ class wechat:
             sql_sum_day = sql_sum_day.format(username=user, start_days=start_days, end_days=end_days)
             sql1 = sql1.format(u=user, days=days)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            sum_day = self.fetch_all(sql_sum_day)
+            sum_day = self.fetch_all_sum_day(sql_sum_day)
 
             if sum_day:
                 for sum_d in sum_day:
@@ -158,14 +165,15 @@ class wechat:
 
 if __name__ == '__main__':
     we = wechat()
-    try:
-        we.asy_data()
-    except Exception as e:
-        print(e)
-    try:
-        we.asy_month_data()
-    except Exception as e:
-        print(e)
+    we.asy_month_data()
+    # try:
+    #     we.asy_data()
+    # except Exception as e:
+    #     print(e)
+    # try:
+    #     we.asy_month_data()
+    # except Exception as e:
+    #     print(e)
     conn1.commit()
     conn.commit()
     conn1.close()
