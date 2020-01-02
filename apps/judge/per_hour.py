@@ -157,7 +157,7 @@ def get_per_hour(media_id):
 
 if __name__ == '__main__':
     data_android, data_ios = get_per_hour(0)
-    if int(data_android) or int(data_ios):
+    if data_android or data_ios:
         print('同步正常')
     else:
         print("同步异常，再次同步！")
