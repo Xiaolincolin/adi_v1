@@ -154,26 +154,33 @@ class wechat:
             params = [user, app, game, brand, ts, days, sum_day]
             has_exist = self.fetch_all(sql1)
             if has_exist:
-                sql_update = "UPDATE wechat_month_asy SET app='{app}',game='{game}',brand='{brand}',sum_day='{sum_day}',update_time=NOW() where `users`='{usr}' and `days`='{days}';"
-                sql_update = sql_update.format(app=app, game=game, brand=brand, usr=user, days=days, sum_day=sum_day)
-                self.update_month(sql_update)
-                print(user, " 更新成功！！")
+                try:
+                    sql_update = "UPDATE wechat_month_asy SET app='{app}',game='{game}',brand='{brand}',sum_day='{sum_day}',update_time=NOW() where `users`='{usr}' and `days`='{days}';"
+                    sql_update = sql_update.format(app=app, game=game, brand=brand, usr=user, days=days,
+                                                   sum_day=sum_day)
+                    self.update_month(sql_update)
+                    print(user, " 更新成功！！")
+                except Exception as e:
+                    print(user, '更新失败')
             else:
-                self.insert_data(sql, params)
-                print(user, " 插入成功！！！")
+                try:
+                    self.insert_data(sql, params)
+                    print(user, " 插入成功！！！")
+                except Exception as e:
+                    print(user, "插入失败")
 
 
 if __name__ == '__main__':
     we = wechat()
-    we.asy_month_data()
-    # try:
-    #     we.asy_data()
-    # except Exception as e:
-    #     print(e)
-    # try:
-    #     we.asy_month_data()
-    # except Exception as e:
-    #     print(e)
+    # we.asy_month_data()
+    try:
+        we.asy_data()
+    except Exception as e:
+        print(e)
+    try:
+        we.asy_month_data()
+    except Exception as e:
+        print(e)
     conn1.commit()
     conn.commit()
     conn1.close()
