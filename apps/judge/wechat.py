@@ -140,7 +140,7 @@ class wechat:
             brand = item.get(2, 0)
             sql = "insert into wechat_month_asy(users, app, game, brand, create_time, days, sum_day) values(%s,%s,%s,%s,%s,%s,%s)"
             sql1 = "SELECT users,days from wechat_month_asy where users='{u}' and days='{days}'"
-            sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}'"
+            sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}' and game > 39"
             sql_sum_day = sql_sum_day.format(username=user, start_days=start_days, end_days=end_days)
             sql1 = sql1.format(u=user, days=days)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
