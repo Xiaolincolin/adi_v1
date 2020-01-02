@@ -175,11 +175,11 @@ class wechat:
 
 if __name__ == '__main__':
     we = wechat()
-    # we.asy_month_data()
-    # try:
-    #     we.asy_data()
-    # except Exception as e:
-    #     print(e)
+    we.asy_month_data()
+    try:
+        we.asy_data()
+    except Exception as e:
+        print(e)
     try:
         we.asy_month_data()
     except Exception as e:
