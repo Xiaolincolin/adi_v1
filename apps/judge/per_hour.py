@@ -146,14 +146,28 @@ def fetch_all(sql):
     return raw
 
 
+def get_per_hour(media_id):
+    hour = datetime.datetime.now().hour
+    key_android = str(media_id) + ":" + "1:" + str(hour)
+    key_ios = str(media_id) + ":" + "2:" + str(hour)
+    data_android = rdc_local.get(key_android)
+    data_ios = rdc_local.get(key_ios)
+    return data_android, data_ios
+
+
 if __name__ == '__main__':
-    try:
-        ts = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-        print(ts, "开始更新！")
-        asy_per_hour()
-        ts1 = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-        print(ts1, "更新结束！")
-    except Exception as e:
-        print(e)
-        print("更新失败，再次更新")
-        asy_per_hour()
+    data_android, data_ios = get_per_hour(0)
+    if int(data_android) or int(data_ios):
+        print('同步正常')
+    else:
+        print("同步异常，再次同步！")
+        try:
+            ts = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+            print(ts, "开始更新！")
+            asy_per_hour()
+            ts1 = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+            print(ts1, "更新结束！")
+        except Exception as e:
+            print(e)
+            print("更新失败，再次更新")
+            asy_per_hour()
