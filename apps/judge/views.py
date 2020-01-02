@@ -416,6 +416,9 @@ class WechatView(View):
         if request.user.is_authenticated:
             year = datetime.datetime.now().year
             month = datetime.datetime.now().month
+            month_len = len(str(month))
+            if month_len == 1:
+                month = '0' + str(month)
             this_month = str(year) + "-" + str(month)
             a_month_data = self.get_month_data(this_month)
             return render(request, "role.html", {"this_month": json.dumps(a_month_data)})
@@ -486,4 +489,14 @@ class DownloadView(View):
         pass
 
     def post(self):
+        pass
+
+
+class VersionView(View):
+    def get(self, request):
+        return render(request, 'version.html', {
+
+        })
+
+    def post(self, request):
         pass

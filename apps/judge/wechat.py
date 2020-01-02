@@ -122,6 +122,9 @@ class wechat:
         end_days = str(datetime.date.today())
         year = datetime.datetime.now().year
         month = datetime.datetime.now().month
+        month_len = len(str(month))
+        if month_len == 1:
+            month = '0' + str(month)
         start_days = str(year) + "-" + str(month) + "-01"
         # end_days = "2019-11-30"
         # start_days = "2019-11-01"
@@ -173,10 +176,10 @@ class wechat:
 if __name__ == '__main__':
     we = wechat()
     # we.asy_month_data()
-    try:
-        we.asy_data()
-    except Exception as e:
-        print(e)
+    # try:
+    #     we.asy_data()
+    # except Exception as e:
+    #     print(e)
     try:
         we.asy_month_data()
     except Exception as e:
