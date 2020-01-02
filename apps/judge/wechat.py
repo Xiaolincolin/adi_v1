@@ -126,8 +126,8 @@ class wechat:
         if month_len == 1:
             month = '0' + str(month)
         start_days = str(year) + "-" + str(month) + "-01"
-        # end_days = "2019-11-30"
-        # start_days = "2019-11-01"
+        # end_days = "2019-12-31"
+        # start_days = "2019-12-01"
         data = self.get_month_data(start_days, end_days)
         if not data:
             return
@@ -140,7 +140,7 @@ class wechat:
             brand = item.get(2, 0)
             sql = "insert into wechat_month_asy(users, app, game, brand, create_time, days, sum_day) values(%s,%s,%s,%s,%s,%s,%s)"
             sql1 = "SELECT users,days from wechat_month_asy where users='{u}' and days='{days}'"
-            sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}'"
+            sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}' and game > 39"
             sql_sum_day = sql_sum_day.format(username=user, start_days=start_days, end_days=end_days)
             sql1 = sql1.format(u=user, days=days)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -175,11 +175,10 @@ class wechat:
 
 if __name__ == '__main__':
     we = wechat()
-    # we.asy_month_data()
-    # try:
-    #     we.asy_data()
-    # except Exception as e:
-    #     print(e)
+    try:
+        we.asy_data()
+    except Exception as e:
+        print(e)
     try:
         we.asy_month_data()
     except Exception as e:
