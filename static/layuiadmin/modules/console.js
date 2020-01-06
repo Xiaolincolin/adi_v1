@@ -57,6 +57,7 @@ layui.define(function (e) {
                                 smooth: !0,
                                 itemStyle: {
                                     normal: {
+                                        color:'#ba26de',
                                         areaStyle: {
                                             type: "default"
                                         }
@@ -83,6 +84,7 @@ layui.define(function (e) {
                                     smooth: !0,
                                     itemStyle: {
                                         normal: {
+                                            color:'#ebe41c',
                                             areaStyle: {
                                                 type: "default"
                                             }
