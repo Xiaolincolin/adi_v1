@@ -200,7 +200,7 @@ def yesterday_to_mysql():
 def a_month_asn():
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     today = str(datetime.date.today())
-    for i in range(1, 4):
+    for i in range(1, 3):
         print("正在同步第" + str(i) + "天")
         days = (datetime.date.today() + datetime.timedelta(days=-i)).strftime("%Y-%m-%d")
         for name in media_name:
@@ -249,8 +249,7 @@ def app_yesterday_to_mysql():
 
 def app_a_month_asn():
     ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    today = str(datetime.date.today())
-    for i in range(1, 10):
+    for i in range(1, 3):
         print("正在同步第" + str(i) + "天")
         days = (datetime.date.today() + datetime.timedelta(days=-i)).strftime("%Y-%m-%d")
         for name in media_name:
@@ -276,8 +275,8 @@ import numpy
 
 if __name__ == '__main__':
     try:
-        # a_month_asn()
-        yesterday_to_mysql()
+        a_month_asn()
+        # yesterday_to_mysql()
     except Exception as e:
         print("第一次失败：", e)
         time.sleep(10)
@@ -288,8 +287,8 @@ if __name__ == '__main__':
             print("第二次失败：",e)
 
     try:
-        app_yesterday_to_mysql()
-        # app_a_month_asn()
+        # app_yesterday_to_mysql()
+        app_a_month_asn()
     except Exception as e:
         print("第次失败：",e)
         time.sleep(10)
