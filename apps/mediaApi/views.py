@@ -13,8 +13,13 @@ class ApiView(View):
         return "adi"
 
     def post(self, request):
-        data = request.POST.get("data", "")
-        do = request.POST.get("do", "")
+        try:
+            json_dic = eval(request.body)
+        except Exception as e:
+            print(e)
+            return JsonResponse({"msg": "body not a json"}, safe=True)
+        data = json_dic.get("data", "")
+        do = json_dic.get("do", "")
         if str(do) == "1":
             json_data = self.get_data(data)
             return JsonResponse(json_data, safe=True)
@@ -28,6 +33,8 @@ class ApiView(View):
         data = json_data
         ad_json = {}
         tmp_usr = {}
+        pd = {}
+        tmp_list = []
         if data:
             if not isinstance(data, dict):
                 data = json.loads(data)
@@ -40,18 +47,20 @@ class ApiView(View):
                     tmp = {}
                     try:
                         if item:
-                            tmp['product'] = item[2]
-                            tmp['images'] = item[3]
-                            tmp['videos'] = item[4]
-                            tmp['title'] = item[5]
-                            tmp['media_id'] = item[6]
-                            tmp['logo'] = item[7]
-                            tmp['lp'] = item[8]
-                            tmp['pkg_name'] = item[9]
-                            tmp_usr[item[1]] = tmp
+                            images = []
+                            images.append(item[3])
+                            tmp["imgs"] = images
+                            tmp["from"] = 3
+                            tmp['subType'] = 3
+                            tmp['adDescription'] = item[5]
+                            tmp['adUserNickName'] = item[2]
+                            tmp['adActionLinkName'] = "打开游戏"
+                            tmp['adActionLink'] = item[8]
+                            tmp_list.append(tmp)
                     except Exception as e:
                         print(e)
-                ad_json[user] = tmp_usr
+                pd["pbData"] = tmp_list
+                ad_json["data"] = pd
                 ad_json['from'] = media
                 ad_json['msg'] = "success"
                 return ad_json
