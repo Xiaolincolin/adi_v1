@@ -18,6 +18,8 @@ from apps.judge.views import ClassifyView, FormView, StatisticsView, VersionView
 from apps.wechat.views import WechatView
 from apps.users.views import LoginView, LogoutView, TmpView
 from django.conf.urls import url
+from apps.mediaApi.views import ApiView
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,5 +30,6 @@ urlpatterns = [
     url(r'^data/$', FormView.as_view(), name="data"),
     url(r'^fx/$', StatisticsView.as_view(), name="fx"),
     url(r'^wechat/$', WechatView.as_view(), name="wechat"),
-    url(r'^ver/$', VersionView.as_view(), name="ver")
+    url(r'^ver/$', VersionView.as_view(), name="ver"),
+    url(r'^data_api/$', csrf_exempt(ApiView.as_view()), name="api")
 ]
