@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.judge',
-    'apps.users'
+    'apps.users',
+    'apps.mediaVersion'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,7 @@ USE_TZ = True
 AUTH_USER_MODEL = "users.UserProfile"
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [(os.path.join(BASE_DIR, 'static'))]
+<<<<<<< HEAD
+=======
+APPEND_SLASH=False
+>>>>>>> dfee0c882b3db6cf9ac2c56d299b35a75fef31a9

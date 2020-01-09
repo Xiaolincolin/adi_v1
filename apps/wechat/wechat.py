@@ -100,7 +100,7 @@ class wechat:
         cursor.execute(sql, param)
 
     def asy_data(self):
-        days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
+        days = (datetime.date.today() + datetime.timedelta(days=-0)).strftime("%Y-%m-%d")
         source_id = [0, 1, 3]
         for s_id in source_id:
             data = self.get_data(days, s_id)
