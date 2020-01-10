@@ -39,29 +39,47 @@ class ApiView(View):
             if not isinstance(data, dict):
                 data = json.loads(data)
             user = data.get("user", "")
-            media = data.get("from", "")
+            # media = data.get("from", "")
+            print("user",user)
             result = self.select_account(user)
             if result:
                 for i in result:
                     item = list(i)
                     tmp = {}
                     try:
-                        if item:
+                        if item and len(item) == 11:
                             images = []
-                            images.append(item[3])
+                            imgs = item[9]
+                            if imgs and ",," in imgs:
+                                imgs = str(imgs).split(",,")
+                                for img in imgs:
+                                    images.append(img)
+                            elif imgs:
+                                images.append(imgs)
                             tmp["imgs"] = images
-                            tmp["from"] = 3
-                            tmp['subType'] = 3
-                            tmp['adDescription'] = item[5]
-                            tmp['adUserNickName'] = item[2]
-                            tmp['adActionLinkName'] = "打开游戏"
-                            tmp['adActionLink'] = item[8]
+                            tmp["username"] = item[0]
+                            tmp['from'] = item[1]
+                            dt = item[2]
+                            if dt:
+                                dt = str(dt).split("_")
+                                if len(dt) == 2:
+                                    tmp['adDisplayTime'] = dt[0]
+                                    tmp['adCreateTime'] = dt[1]
+
+                            tmp['adActionLinkName'] = item[3]
+                            tmp['adUserNickName'] = item[4]
+                            tmp['adActionLink'] = item[5]
+                            tmp['adDescription'] = item[6]
+                            tmp['adActionAppStoreLink'] = item[7]
+                            tmp['subType'] = item[8]
+                            tmp['advertiseID'] = item[10]
                             tmp_list.append(tmp)
                     except Exception as e:
                         print(e)
                 pd["pbData"] = tmp_list
+                pd["xmlData"] = []
                 ad_json["data"] = pd
-                ad_json['from'] = media
+                # ad_json['from'] = media
                 ad_json['msg'] = "success"
                 return ad_json
             else:
@@ -72,7 +90,8 @@ class ApiView(View):
     def select_account(self, account):
         try:
             cursor = connection.cursor()
-            sql_str = 'select * from wechat_tmp where `phone` = %s and product="no_product" '
+            sql_str = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,u.ad_id FROM wechat_user as u,wechat_res as r where u.ad_id=r.ad_id and r.product='no_product' and phone=%s"
+            # sql_str = 'select * from wechat_tmp where `phone` = %s and product="no_product" '
             params = [account]
             cursor.execute(sql_str, params)
             data = cursor.fetchall()
@@ -87,9 +106,9 @@ class ApiView(View):
                 data = json.loads(data)
             user = data.get("user", "")
             product = data.get("product", "")
-            uid = data.get("ad_id", "")
-            if user and product and uid:
-                status_code = self.update_product(product, str(user), str(uid))
+            ad_id = data.get("ad_id", "")
+            if user and product and ad_id:
+                status_code = self.update_product(product, str(user), str(ad_id))
                 if status_code:
                     return {"msg": 'succes'}
                 else:
@@ -98,11 +117,11 @@ class ApiView(View):
                 return {"msg": "user or product or uid is None!"}
         return {"msg": "data is None"}
 
-    def update_product(self, product, account, uid):
+    def update_product(self, product, account, ad_id):
         try:
             cursor = connection.cursor()
-            sql_str = "UPDATE wechat_tmp SET product='{product}',update_time=NOW() where phone='{account}' and ad_uid='{uid}'"
-            sql = sql_str.format(product=product, account=account, uid=uid)
+            sql_str = "UPDATE wechat_res SET product='{product}',update_time=NOW() where ad_id=(SELECT ad_id FROM wechat_user where phone='{account}' and ad_id='{uid}');"
+            sql = sql_str.format(product=product, account=account, uid=ad_id)
             r = cursor.execute(sql)
             return r
         except Exception as e:
