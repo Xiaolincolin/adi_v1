@@ -85,6 +85,12 @@ class wechat:
         raw = cursor.fetchall()
         return raw
 
+    def fetch_local(self, sql):
+        cursor = conn1.cursor()
+        cursor.execute(sql)
+        raw = cursor.fetchall()
+        return raw
+
     def fetch_all_sum_day(self, sql):
         cursor = conn1.cursor()
         cursor.execute(sql)
@@ -100,7 +106,7 @@ class wechat:
         cursor.execute(sql, param)
 
     def asy_data(self):
-        days = (datetime.date.today() + datetime.timedelta(days=-0)).strftime("%Y-%m-%d")
+        days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
         source_id = [0, 1, 3]
         for s_id in source_id:
             data = self.get_data(days, s_id)
@@ -143,6 +149,7 @@ class wechat:
             sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}' and game > 39"
             sql_sum_day = sql_sum_day.format(username=user, start_days=start_days, end_days=end_days)
             sql1 = sql1.format(u=user, days=days)
+            print(sql1)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             sum_day = self.fetch_all_sum_day(sql_sum_day)
 
@@ -155,7 +162,7 @@ class wechat:
             else:
                 sum_day = 0
             params = [user, app, game, brand, ts, days, sum_day]
-            has_exist = self.fetch_all(sql1)
+            has_exist = self.fetch_local(sql1)
             if has_exist:
                 try:
                     sql_update = "UPDATE wechat_month_asy SET app='{app}',game='{game}',brand='{brand}',sum_day='{sum_day}',update_time=NOW() where `users`='{usr}' and `days`='{days}';"
@@ -170,6 +177,7 @@ class wechat:
                     self.insert_data(sql, params)
                     print(user, " 插入成功！！！")
                 except Exception as e:
+                    print(e)
                     print(user, "插入失败")
 
 
