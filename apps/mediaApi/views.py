@@ -40,7 +40,7 @@ class ApiView(View):
                 data = json.loads(data)
             user = data.get("user", "")
             # media = data.get("from", "")
-            print("user",user)
+            print("user", user)
             result = self.select_account(user)
             if result:
                 for i in result:
@@ -80,7 +80,7 @@ class ApiView(View):
                 pd["xmlData"] = []
                 ad_json["data"] = pd
                 # ad_json['from'] = media
-                ad_json['msg'] = "success"
+                ad_json['msg'] = "1"
                 return ad_json
             else:
                 return {"msg": "data is not exist"}
@@ -90,7 +90,7 @@ class ApiView(View):
     def select_account(self, account):
         try:
             cursor = connection.cursor()
-            sql_str = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,u.ad_id FROM wechat_user as u,wechat_res as r where u.ad_id=r.ad_id and r.product='no_product' and phone=%s"
+            sql_str = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,ad_id FROM wechat_res  where product='no_product' and phone=%s"
             # sql_str = 'select * from wechat_tmp where `phone` = %s and product="no_product" '
             params = [account]
             cursor.execute(sql_str, params)
@@ -110,7 +110,7 @@ class ApiView(View):
             if user and product and ad_id:
                 status_code = self.update_product(product, str(user), str(ad_id))
                 if status_code:
-                    return {"msg": 'succes'}
+                    return {"msg": '1'}
                 else:
                     return {"msg": "add product fail"}
             else:
