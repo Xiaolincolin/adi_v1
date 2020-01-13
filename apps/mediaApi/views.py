@@ -53,7 +53,7 @@ class ApiView(View):
                     item = list(i)
                     tmp = {}
                     try:
-                        if item and len(item) == 11:
+                        if item:
                             images = []
                             imgs = item[9]
                             if imgs and ",," in imgs:
@@ -88,6 +88,7 @@ class ApiView(View):
                 ad_json["data"] = pd
                 # ad_json['from'] = media
                 ad_json['msg'] = "success"
+                print(ad_json)
                 return ad_json
             else:
                 return {"msg": "data is not exist"}
