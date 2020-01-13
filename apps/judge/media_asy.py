@@ -99,7 +99,7 @@ media_name = [
     "西瓜视频",
     "豆瓣",
     "趣头条",
-    "遨游浏览器",
+    "傲游浏览器",
     "风行视频",
 ]
 
@@ -275,8 +275,8 @@ import numpy
 
 if __name__ == '__main__':
     try:
-        a_month_asn()
-        # yesterday_to_mysql()
+        # a_month_asn()
+        yesterday_to_mysql()
     except Exception as e:
         print("第一次失败：", e)
         time.sleep(10)
@@ -287,8 +287,8 @@ if __name__ == '__main__':
             print("第二次失败：",e)
 
     try:
-        # app_yesterday_to_mysql()
-        app_a_month_asn()
+        app_yesterday_to_mysql()
+        # app_a_month_asn()
     except Exception as e:
         print("第次失败：",e)
         time.sleep(10)
