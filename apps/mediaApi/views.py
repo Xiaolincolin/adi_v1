@@ -28,9 +28,9 @@ class ApiView(View):
             json_data = self.add_product(data)
             msg = json_data.get("msg", "")
             if str(msg) == "1":
-                ad_id = json_data.get("ad_id", "")
+                md5_id = json_data.get("md5", "")
                 redis_handle = self.get_redis()
-                redis_handle.lpush("pyq_ios", ad_id)
+                redis_handle.lpush("pyq_ios", md5_id)
             return JsonResponse(json_data, safe=True)
         else:
             return JsonResponse({"msg": "fail"}, safe=True)
@@ -79,6 +79,7 @@ class ApiView(View):
                             tmp['adActionAppStoreLink'] = item[7]
                             tmp['subType'] = item[8]
                             tmp['advertiseID'] = item[10]
+                            tmp["md5"] = item[11]
                             tmp_list.append(tmp)
                     except Exception as e:
                         print(e)
@@ -96,7 +97,7 @@ class ApiView(View):
     def select_account(self, account):
         try:
             cursor = connection.cursor()
-            sql_str = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,ad_id FROM wechat_res  where product='no_product' and phone=%s"
+            sql_str = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,ad_id,union_md5 FROM wechat_res  where product='no_product' and phone=%s"
             # sql_str = 'select * from wechat_tmp where `phone` = %s and product="no_product" '
             params = [account]
             cursor.execute(sql_str, params)
@@ -112,22 +113,22 @@ class ApiView(View):
                 data = json.loads(data)
             user = data.get("user", "")
             product = data.get("product", "")
-            ad_id = data.get("ad_id", "")
-            if user and product and ad_id:
-                status_code = self.update_product(product, str(user), str(ad_id))
+            md5_id = data.get("md5", "")
+            if user and product and md5_id:
+                status_code = self.update_product(product, str(user), str(md5_id))
                 if status_code:
-                    return {"msg": 'succes', "ad_id": ad_id}
+                    return {"msg": 'succes', "md5": md5_id}
                 else:
                     return {"msg": "add product fail"}
             else:
                 return {"msg": "user or product or uid is None!"}
         return {"msg": "data is None"}
 
-    def update_product(self, product, account, ad_id):
+    def update_product(self, product, account, md5_id):
         try:
             cursor = connection.cursor()
-            sql_str = "UPDATE wechat_res SET product='{product}',tag=1,update_time=NOW() where ad_id=(SELECT ad_id FROM wechat_user where phone='{account}' and ad_id='{ad_id}');"
-            sql = sql_str.format(product=product, account=account, ad_id=ad_id)
+            sql_str = "UPDATE wechat_res SET product='{product}',tag=1,update_time=NOW() where phone='{account}' and union_md5='{md5_id}'"
+            sql = sql_str.format(product=product, account=account, md5_id=md5_id)
             r = cursor.execute(sql)
             return r
         except Exception as e:
