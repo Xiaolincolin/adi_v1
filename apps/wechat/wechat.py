@@ -7,12 +7,12 @@ from DBUtils.PooledDB import PooledDB
 pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
-conn = pool.connection()
+
 
 pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
                  password='Adi_mysql',
                  database='adi', charset='utf8')
-conn1 = pool1.connection()
+
 
 
 class wechat:
@@ -80,33 +80,48 @@ class wechat:
         return tmp
 
     def fetch_all(self, sql):
+        conn = pool.connection()
         cursor = conn.cursor()
         cursor.execute(sql)
         raw = cursor.fetchall()
+        conn.close()
+        cursor.close()
         return raw
 
     def fetch_local(self, sql):
+        conn1 = pool1.connection()
         cursor = conn1.cursor()
         cursor.execute(sql)
         raw = cursor.fetchall()
+        conn1.close()
+        cursor.close()
         return raw
 
     def fetch_all_sum_day(self, sql):
+        conn1 = pool1.connection()
         cursor = conn1.cursor()
         cursor.execute(sql)
         raw = cursor.fetchall()
+        conn1.close()
+        cursor.close()
         return raw
 
     def update_month(self, sql):
+        conn1 = pool1.connection()
         cursor = conn1.cursor()
         cursor.execute(sql)
+        conn1.close()
+        cursor.close()
 
     def insert_data(self, sql, param):
+        conn1 = pool1.connection()
         cursor = conn1.cursor()
         cursor.execute(sql, param)
+        conn1.close()
+        cursor.close()
 
     def asy_data(self):
-        days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
+        days = (datetime.date.today() + datetime.timedelta(days=-3)).strftime("%Y-%m-%d")
         source_id = [0, 1, 3]
         for s_id in source_id:
             data = self.get_data(days, s_id)
@@ -149,7 +164,6 @@ class wechat:
             sql_sum_day = "SELECT count(DISTINCT(days)) FROM wechat_asy  where users='{username}' and days BETWEEN '{start_days}' and '{end_days}' and game > 39"
             sql_sum_day = sql_sum_day.format(username=user, start_days=start_days, end_days=end_days)
             sql1 = sql1.format(u=user, days=days)
-            print(sql1)
             ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             sum_day = self.fetch_all_sum_day(sql_sum_day)
 
@@ -191,7 +205,3 @@ if __name__ == '__main__':
         we.asy_month_data()
     except Exception as e:
         print(e)
-    conn1.commit()
-    conn.commit()
-    conn1.close()
-    conn.close()

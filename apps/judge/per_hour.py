@@ -10,7 +10,7 @@ rdc_local = redis.StrictRedis(connection_pool=rdp_local)
 pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
-conn = pool.connection()
+
 
 media_name = {
     "360浏览器": "46",
@@ -140,9 +140,12 @@ def asy_per_hour():
 
 
 def fetch_all(sql):
+    conn = pool.connection()
     cursor = conn.cursor()
     cursor.execute(sql)
     raw = cursor.fetchall()
+    cursor.close()
+    conn.close()
     return raw
 
 
