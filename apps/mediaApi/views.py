@@ -199,7 +199,7 @@ class MediaInfo(View):
                         count = int(count)
                     if str(mid) != "1":
                         sql_income = "SELECT counts FROM mediaInfo_day where account='{account}' and mediaUUID='{mid}'"
-                        sql_income = sql_income.format(account=user,mid=str(mid))
+                        sql_income = sql_income.format(account=user, mid=str(mid))
                         income_result = self.select_data(sql_income)
                         for item in income_result:
                             if item:
@@ -239,7 +239,7 @@ class MediaInfo(View):
         tmp, account_list, defaultPrice = self.get_rank_pyq(begin, end)
         pyq_list = self.process_pyq(tmp, account_list, defaultPrice)
         ks = self.get_rank_ks(begin, end)
-        ks_list = self.process_ks(ks)
+        ks_list = self.process_ks(ks, begin, end)
         data["1"] = pyq_list
         data["3"] = ks_list
         result["stats"] = "0"
@@ -254,7 +254,6 @@ class MediaInfo(View):
         sql = "SELECT account,sum(counts) as s,defaultPrice FROM mediaInfo_day where mediaUUID='1' and days BETWEEN '{A}' and '{B}' GROUP BY account ORDER BY s desc"
         sql = sql.format(A=begin, B=end)
         items = self.select_data(sql)
-        print(items)
         for item in items:
             item = list(item)
             account = item[0]
@@ -288,15 +287,19 @@ class MediaInfo(View):
                     if counts >= 40:
                         value += 1
                         account_dict[account] = value
+                    else:
+                        account_dict[account] = value
                 else:
-                    if counts > 40:
+                    if counts >= 40:
                         account_dict[account] = 1
+                    else:
+                        account_dict[account] = 0
         if account_dict:
             data = sorted(account_dict.items(), key=lambda x: x[1], reverse=True)
         return data
 
-    def process_ks(self, ks):
-        ks_sum = "SELECT sum(counts) FROM mediaInfo_day where mediaUUID=3 and account='{phone}'"
+    def process_ks(self, ks, begin, end):
+        ks_sum = "SELECT sum(counts) FROM mediaInfo_day where mediaUUID=3 and account='{phone}' and days BETWEEN '{A}' and '{B}'"
         sql_name = "SELECT realName FROM wechat_res where phone='{phone}'"
         ks_list = []
         if ks:
@@ -304,7 +307,7 @@ class MediaInfo(View):
                 ks_json = {}
                 account = item[0]
                 days = item[1]
-                ks_sql = ks_sum.format(phone=account)
+                ks_sql = ks_sum.format(phone=account, A=begin, B=end)
                 sum_count = self.select_data(ks_sql)
                 if sum_count:
                     sum_count = list(sum_count)
@@ -331,7 +334,8 @@ class MediaInfo(View):
                             name = ""
                     else:
                         name = ""
-
+                if account and len(account) == 11:
+                    account = str(account[0:3]) + "xxxx" + str(account[-3:])
                 income = days * 10
                 ks_json["phone"] = account
                 ks_json["realName"] = name
