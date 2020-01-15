@@ -194,11 +194,12 @@ class MediaInfo(View):
                     tmp_data['mediaUUID'] = result[5]
                     defaultPrice = result[3]
                     count = result[6]
+                    mid = result[5]
                     if count:
                         count = int(count)
-                    if str(result[5]) == "3":
-                        sql_income = "SELECT counts FROM mediaInfo_day where account='{account}' and mediaUUID='3'"
-                        sql_income = sql_income.format(account=user)
+                    if str(mid) != "1":
+                        sql_income = "SELECT counts FROM mediaInfo_day where account='{account}' and mediaUUID='{mid}'"
+                        sql_income = sql_income.format(account=user,mid=str(mid))
                         income_result = self.select_data(sql_income)
                         for item in income_result:
                             if item:
@@ -228,7 +229,7 @@ class MediaInfo(View):
             json_data["data"] = tmp
         else:
             json_data["stats"] = "-1"
-            json_data["msg"] = "当前无数据！"
+            json_data["msg"] = "当前用户无数据！"
             json_data["data"] = tmp
         return json_data
 
