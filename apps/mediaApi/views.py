@@ -162,7 +162,7 @@ class MediaInfo(View):
         mediaUUID = request.GET.get("mediaUUID", "")
         if str(id) == "1":
             json_data = self.get_all_data(user)
-            return JsonResponse(json_data, safe=True)
+            return JsonResponse(json_data,content_type="application/json", safe=True)
         elif str(id) == "2":
             json_data = self.get_rank(begin, end)
             return JsonResponse(json.dumps(json_data), content_type="application/json", safe=False)
