@@ -162,13 +162,13 @@ class MediaInfo(View):
         mediaUUID = request.GET.get("mediaUUID", "")
         if str(id) == "1":
             json_data = self.get_all_data(user)
-            return JsonResponse(json_data,content_type="application/json", safe=True)
+            return JsonResponse(json_data, content_type="application/json", safe=True)
         elif str(id) == "2":
             json_data = self.get_rank(begin, end)
-            return JsonResponse(json.dumps(json_data), content_type="application/json", safe=False)
+            return JsonResponse(json_data, content_type="application/json", safe=True)
         elif str(id) == "3":
             json_data = self.adRecordDetail(user, begin, end, index, size, mediaUUID)
-            return JsonResponse(json.dumps(json_data), content_type="application/json", safe=False)
+            return JsonResponse(json_data, content_type="application/json", safe=True)
 
     def post(self, request):
         pass
@@ -198,7 +198,7 @@ class MediaInfo(View):
                         count = int(count)
                     if str(result[5]) == "3":
                         sql_income = "SELECT counts FROM mediaInfo_day where account='{account}' and mediaUUID='3'"
-                        sql_income=sql_income.format(account=user)
+                        sql_income = sql_income.format(account=user)
                         income_result = self.select_data(sql_income)
                         for item in income_result:
                             if item:
