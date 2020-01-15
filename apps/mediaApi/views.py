@@ -387,7 +387,7 @@ class MediaInfo(View):
 
         if user and str(mediaUUID):
             result_list = []
-            sql = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,ad_id,union_md5,insert_time,product FROM wechat_res  where phone='{user}' and days BETWEEN '{begin}' and '{end}' ORDER BY days desc"
+            sql = "SELECT username,media_id,dt,buttom,nickname,lp,creative,appstore_link,sbType,images,ad_id,union_md5,insert_time,product FROM wechat_res  where phone='{user}' and  days BETWEEN '{begin}' and '{end}' ORDER BY days desc"
             sql = sql.format(user=user, begin=begin, end=end)
             data = self.select_data(sql)
             if data:
