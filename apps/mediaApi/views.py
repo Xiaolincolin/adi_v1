@@ -155,7 +155,7 @@ class MediaInfo(View):
     def get(self, request):
         id = request.GET.get('id', "")
         user = request.GET.get('user', "")
-        begin = request.GET.get('user', "")
+        begin = request.GET.get('begin', "")
         end = request.GET.get('end', "")
         index = request.GET.get('index', "")
         size = request.GET.get('size', "")
@@ -254,6 +254,7 @@ class MediaInfo(View):
         sql = "SELECT account,sum(counts) as s,defaultPrice FROM mediaInfo_day where mediaUUID='1' and days BETWEEN '{A}' and '{B}' GROUP BY account ORDER BY s desc"
         sql = sql.format(A=begin, B=end)
         items = self.select_data(sql)
+        print(items)
         for item in items:
             item = list(item)
             account = item[0]
@@ -323,6 +324,7 @@ class MediaInfo(View):
                 else:
                     name = name[0]
                     if name:
+                        name = name[0]
                         if name:
                             name = "**" + str(name[-1])
                         else:
