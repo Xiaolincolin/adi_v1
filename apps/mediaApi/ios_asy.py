@@ -1,4 +1,6 @@
 import datetime
+import time
+
 import pymysql
 
 from DBUtils.PooledDB import PooledDB
@@ -6,12 +8,12 @@ from DBUtils.PooledDB import PooledDB
 pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
-conn = pool.connection()
+
 
 pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
                  password='Adi_mysql',
                  database='adi', charset='utf8')
-conn1 = pool1.connection()
+
 media_list = [
     {
         'mid': '1',
@@ -20,13 +22,13 @@ media_list = [
         'icon_url': 'http://47.95.217.37:8000/static/icon/53.png',
         'source_id': '3',
     },
-    # {
-    #     'mid': '2',
-    #     'media_name': '微信公众号',
-    #     'pkg_name': 'com.tencent.mm',
-    #     'icon_url': 'http://47.95.217.37:8000/static/icon/81.png',
-    #     'source_id': '1',
-    # },
+    {
+        'mid': '2',
+        'media_name': '微信公众号',
+        'pkg_name': 'com.tencent.mm',
+        'icon_url': 'http://47.95.217.37:8000/static/icon/81.png',
+        'source_id': '1',
+    },
     {
         'mid': '3',
         'media_name': '快手',
@@ -62,7 +64,7 @@ class mediaInfo_day:
                     ks_sql = ks_sql.format(days=days)
                     sql = ks_sql
                 else:
-                    pyq_sql = "SELECT account,count(*) FROM wechat_account_ext_last JOIN material_new on wechat_account_ext_last.fp = material_new.fp where ua=2 and `day`='{day}' and source_id='{source_id}'  GROUP BY account;"
+                    pyq_sql = "SELECT account,count(*) FROM wechat_account_ext_last JOIN material_new on wechat_account_ext_last.fp = material_new.fp where `day`='{day}' and source_id='{source_id}'  GROUP BY account;"
                     pyq_sql = pyq_sql.format(day=days, source_id=source_id)
                     sql = pyq_sql
                     flag = 1
@@ -112,9 +114,12 @@ class mediaInfo_day:
 
     def select_adi(self, sql):
         try:
+            conn = pool.connection()
             cursor = conn.cursor()
             cursor.execute(sql)
             raw = cursor.fetchall()
+            cursor.close()
+            conn.close()
             return raw
         except Exception as e:
             print(e)
@@ -122,9 +127,12 @@ class mediaInfo_day:
 
     def excute_local_param(self, sql, param):
         try:
+            conn1 = pool1.connection()
             cursor = conn1.cursor()
             cursor.execute(sql, param)
             conn1.commit()
+            cursor.close()
+            conn1.close()
             return 1
         except Exception as e:
             print(e)
@@ -132,9 +140,12 @@ class mediaInfo_day:
 
     def select_local(self, sql):
         try:
+            conn1 = pool1.connection()
             cursor = conn1.cursor()
             cursor.execute(sql)
             raw = cursor.fetchall()
+            cursor.close()
+            conn1.close()
             return raw
         except Exception as e:
             print(e)
@@ -142,9 +153,12 @@ class mediaInfo_day:
 
     def excute_local(self, sql):
         try:
+            conn1 = pool1.connection()
             cursor = conn1.cursor()
             cursor.execute(sql)
             conn1.commit()
+            cursor.close()
+            conn1.close()
             return 1
         except Exception as e:
             print(e)
@@ -153,4 +167,6 @@ class mediaInfo_day:
 
 if __name__ == '__main__':
     asy = mediaInfo_day(0, 1)
-    asy.run()
+    while True:
+        asy.run()
+        time.sleep(300)

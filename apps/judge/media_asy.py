@@ -8,12 +8,10 @@ from DBUtils.PooledDB import PooledDB
 pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
-conn = pool.connection()
 
 pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
-                password='Adi_mysql',
-                database='adi', charset='utf8')
-conn1 = pool1.connection()
+                 password='Adi_mysql',
+                 database='adi', charset='utf8')
 
 # 得到一个可以执行SQL语句的光标对象
 media_name = [
@@ -105,15 +103,22 @@ media_name = [
 
 
 def fetch_one(sql):
+    conn = pool.connection()
     cursor = conn.cursor()
     cursor.execute(sql)
     raw = cursor.fetchone()
+    cursor.close()
+    conn.close()
     return raw
 
 
 def insert_data(sql, param):
+    conn1 = pool1.connection()
     cursor = conn1.cursor()
     cursor.execute(sql, param)
+    conn1.commit()
+    cursor.close()
+    conn1.close()
 
 
 def sum_game(media_name, ts):
@@ -191,9 +196,9 @@ def yesterday_to_mysql():
             insert_data(sql, ios_param)
             android_param = [name, '1', android_sum, days, ts, ts]
             insert_data(sql, android_param)
-            print("游戏:"+name + "同步完成！")
+            print("游戏:" + name + "同步完成！")
         except Exception as e:
-            print("游戏:"+name + "报错了~")
+            print("游戏:" + name + "报错了~")
             print(e)
 
 
@@ -241,9 +246,9 @@ def app_yesterday_to_mysql():
             insert_data(sql, ios_param)
             android_param = [name, '1', android_sum, days, ts, ts]
             insert_data(sql, android_param)
-            print("应用:"+name + "同步完成！")
+            print("应用:" + name + "同步完成！")
         except Exception as e:
-            print("应用:"+name + "报错了~")
+            print("应用:" + name + "报错了~")
             print(e)
 
 
@@ -271,8 +276,6 @@ def app_a_month_asn():
                 print(e)
 
 
-import numpy
-
 if __name__ == '__main__':
     try:
         # a_month_asn()
@@ -284,21 +287,16 @@ if __name__ == '__main__':
             print("重试！！！！")
             yesterday_to_mysql()
         except Exception as e:
-            print("第二次失败：",e)
+            print("第二次失败：", e)
 
     try:
         app_yesterday_to_mysql()
         # app_a_month_asn()
     except Exception as e:
-        print("第次失败：",e)
+        print("第次失败：", e)
         time.sleep(10)
         try:
             print("重试！！！！")
             app_yesterday_to_mysql()
         except Exception as e:
             print("第二次失败：", e)
-    finally:
-        conn1.commit()
-        conn.commit()
-        conn1.close()
-        conn.close()
