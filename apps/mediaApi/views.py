@@ -1,3 +1,4 @@
+import datetime
 import json
 import math
 import time
@@ -36,11 +37,14 @@ class ApiView(View):
             return JsonResponse(json_data, safe=True)
         elif str(do) == "2":
             json_data = self.add_product(data)
-            msg = json_data.get("msg", "")
-            if str(msg) == "1":
+            msg = json_data.get("flag", "")
+            if msg and str(msg) == "1":
                 md5_id = json_data.get("md5", "")
                 redis_handle = self.get_redis()
                 redis_handle.lpush("pyq_ios", md5_id)
+                time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                key = '_'.join(str(time_now).split())
+                redis_handle.set(key, str(md5_id))
             return JsonResponse(json_data, safe=True)
         else:
             return JsonResponse({"msg": "fail"}, safe=True)
@@ -56,7 +60,6 @@ class ApiView(View):
                 data = json.loads(data)
             user = data.get("user", "")
             # media = data.get("from", "")
-            print("user", user)
             result = self.select_account(user)
             if result:
                 for i in result:
@@ -127,7 +130,7 @@ class ApiView(View):
             if user and product and md5_id:
                 status_code = self.update_product(product, str(user), str(md5_id))
                 if status_code:
-                    return {"msg": 'succes', "md5": md5_id}
+                    return {"msg": 'succes', "md5": md5_id, "flag": "1"}
                 else:
                     return {"msg": "add product fail"}
             else:
