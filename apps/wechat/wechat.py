@@ -110,15 +110,19 @@ class wechat:
         conn1 = pool1.connection()
         cursor = conn1.cursor()
         cursor.execute(sql)
-        conn1.close()
+        conn1.commit()
         cursor.close()
+        conn1.close()
+
 
     def insert_data(self, sql, param):
         conn1 = pool1.connection()
         cursor = conn1.cursor()
         cursor.execute(sql, param)
-        conn1.close()
+        conn1.commit()
         cursor.close()
+        conn1.close()
+
 
     def asy_data(self):
         days = (datetime.date.today() + datetime.timedelta(days=-1)).strftime("%Y-%m-%d")
