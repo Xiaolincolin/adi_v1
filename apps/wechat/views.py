@@ -1,5 +1,6 @@
 import datetime
 import json
+import sys
 
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -7,6 +8,7 @@ from django.db import connection
 
 # Create your views here.
 from django.views import View
+
 
 
 class WechatView(View):
