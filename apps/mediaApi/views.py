@@ -44,7 +44,7 @@ class ApiView(View):
                 redis_handle.lpush("pyq_ios", md5_id)
                 time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 key = '_'.join(str(time_now).split())
-                redis_handle.set(key, str(md5_id))
+                redis_handle.set("log:"+str(key), str(md5_id))
             return JsonResponse(json_data, safe=True)
         else:
             return JsonResponse({"msg": "fail"}, safe=True)

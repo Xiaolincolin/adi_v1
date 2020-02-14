@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'^wechat/$', WechatView.as_view(), name="wechat"),
     url(r'^ver/$', VersionView.as_view(), name="ver"),
     url(r'^data_api$', csrf_exempt(ApiView.as_view()), name="api"),
-    url(r'^mediaInfo$', csrf_exempt(MediaInfo.as_view()), name="api")
+    url(r'^mediaInfo$', csrf_exempt(MediaInfo.as_view()), name="api"),
 ]
