@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from apps.judge.views import ClassifyView, FormView, StatisticsView, VersionView
+from apps.judge.views import ClassifyView, FormView, StatisticsView, VersionView, StatisticsGlobalView
 from apps.wechat.views import WechatView
 from apps.users.views import LoginView, LogoutView, TmpView
 from django.conf.urls import url
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^media/$', ClassifyView.as_view(), name="judge"),
     url(r'^data/$', FormView.as_view(), name="data"),
     url(r'^fx/$', StatisticsView.as_view(), name="fx"),
+    url(r'global',StatisticsGlobalView.as_view(), name='global'),
     url(r'^wechat/$', WechatView.as_view(), name="wechat"),
     url(r'^ver/$', VersionView.as_view(), name="ver"),
     url(r'^data_api$', csrf_exempt(ApiView.as_view()), name="api"),
