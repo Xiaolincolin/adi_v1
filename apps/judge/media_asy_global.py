@@ -217,27 +217,27 @@ def app_a_month_asn():
 
 if __name__ == '__main__':
     try:
-        a_month_asn()
-        # yesterday_to_mysql()
+        # a_month_asn()
+        yesterday_to_mysql()
     except Exception as e:
         print("第一次失败：", e)
         time.sleep(10)
         try:
             print("重试！！！！")
-            # yesterday_to_mysql()
-            a_month_asn()
+            yesterday_to_mysql()
+            # a_month_asn()
         except Exception as e:
             print("第二次失败：", e)
 
     try:
-        # app_yesterday_to_mysql()
-        app_a_month_asn()
+        app_yesterday_to_mysql()
+        # app_a_month_asn()
     except Exception as e:
         print("第次失败：", e)
         time.sleep(10)
         try:
             print("重试！！！！")
-            # app_yesterday_to_mysql()
-            app_a_month_asn()
+            app_yesterday_to_mysql()
+            # app_a_month_asn()
         except Exception as e:
             print("第二次失败：", e)
