@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>layuiAdmin 控制台主页一</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="{% static 'layuiadmin/layui/css/layui.css' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layuiadmin/style/admin.css' %}" media="all">
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">媒体</div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                                <div carousel-item>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas4.png' %}"/>
+                                            <cite>Facebook(FB)</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas8.png' %}"/>
+                                            <cite>Twitter</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas6.png' %}"/>
+                                            <cite>Admob</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas7.png' %}"/>
+                                            <cite>Audience Network</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas14.png' %}"/>
+                                            <cite>Youtube</cite>
+                                        </li>
+
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas5.png' %}"/>
+                                            <cite>Unity</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas0.png' %}"/>
+                                            <cite>Vungle</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas2.png' %}"/>
+                                            <cite>Applovin</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas1.png' %}"/>
+                                            <cite>Adcolony</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas3.png' %}"/>
+                                            <cite> Chartboost</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas13.png' %}"/>
+                                            <cite>TopBuzz</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas12.png' %}"/>
+                                            <cite> BuzzVideo</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas10.png' %}"/>
+                                            <cite>YahooNews_Japan</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas9.png' %}"/>
+                                            <cite> SmartNews_Japan</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas20.png' %}"/>
+                                            <cite>Mobvista</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas17.png' %}"/>
+                                            <cite>Pinterest</cite>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas18.png' %}"/>
+                                            <cite>Instagram</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas19.png' %}"/>
+                                            <cite>Messenger</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas15.png' %}"/>
+                                            <cite> Tik Tok</cite>
+
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <img style="width:30px;height:30px;" src="{% static 'icon/overseas16.png' %}"/>
+                                            <cite>IronSource</cite>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% csrf_token %}
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">数据概览</div>
+                        <div class="layui-card-body">
+
+                            <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade"
+                                 lay-filter="LAY-index-dataview">
+                                <div carousel-item id="LAY-index-dataview">
+                                    <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#                    <div class="layui-card">#}
+{#                        <div class="layui-card-header">本周活跃用户列表</div>#}
+{#                        <div class="layui-card-body">#}
+{#                            <table class="layui-table layuiadmin-page-table" lay-skin="line">#}
+{#                                <thead>#}
+{#                                <tr>#}
+{#                                    <th>用户名</th>#}
+{#                                    <th>最后登录时间</th>#}
+{#                                    <th>状态</th>#}
+{#                                    <th>获得赞</th>#}
+{#                                </tr>#}
+{#                                </thead>#}
+{#                                <tbody>#}
+{#                                <tr>#}
+{#                                    <td><span class="first">胡歌</span></td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 11:20</i></td>#}
+{#                                    <td><span>在线</span></td>#}
+{#                                    <td>22 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td><span class="second">彭于晏</span></td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 10:40</i></td>#}
+{#                                    <td><span>在线</span></td>#}
+{#                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td><span class="third">靳东</span></td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 01:30</i></td>#}
+{#                                    <td><i>离线</i></td>#}
+{#                                    <td>66 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td>吴尊</td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 21:18</i></td>#}
+{#                                    <td><i>离线</i></td>#}
+{#                                    <td>45 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td>许上进</td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 09:30</i></td>#}
+{#                                    <td><span>在线</span></td>#}
+{#                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td>小蚊子</td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 21:18</i></td>#}
+{#                                    <td><i>在线</i></td>#}
+{#                                    <td>45 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                <tr>#}
+{#                                    <td>贤心</td>#}
+{#                                    <td><i class="layui-icon layui-icon-log"> 09:30</i></td>#}
+{#                                    <td><span>在线</span></td>#}
+{#                                    <td>21 <i class="layui-icon layui-icon-praise"></i></td>#}
+{#                                </tr>#}
+{#                                </tbody>#}
+{#                            </table>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">选择查看类型</div>
+                <div class="layui-card-body layui-text">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+
+                        <tr>
+                            <td>选择类型</td>
+                            <td style="padding-bottom: 0;">
+                                <div class="layui-btn-container ">
+                                    <a href="#" class="layui-btn layui-btn-danger report_type">游戏</a>
+                                    <a href="#" class="layui-btn layui-btn-normal report_type">应用</a>
+                                    <a href="#" class="layui-btn report_type" style="display: none">品牌</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header">查看所有媒体总量</div>
+                <div class="layui-card-body layui-text">
+                    <table class="layui-table">
+                        <colgroup>
+                            <col>
+                        </colgroup>
+                        <tbody>
+
+                        <tr>
+                            <td style="padding-bottom: 0;">
+                                <div class="layui-btn-container ">
+                                    <button type="button" class="layui-btn layui-btn-fluid layui-col-xs3">所有媒体</button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="layui-card">
+                <div class="layui-card-header">效果报告</div>
+                <div class="layui-card-body layadmin-takerates">
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>转化率（日同比 28% <span class="layui-edge layui-edge-top" lay-tips="增长" lay-offset="-15"></span>）
+                        </h3>
+                        <div class="layui-progress-bar" lay-percent="65%"></div>
+                    </div>
+                    <div class="layui-progress" lay-showPercent="yes">
+                        <h3>签到率（日同比 11% <span class="layui-edge layui-edge-bottom" lay-tips="下降"
+                                              lay-offset="-15"></span>）</h3>
+                        <div class="layui-progress-bar" lay-percent="32%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'layuiadmin/layui/layui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script>
+    layui.config({
+        base: '{% static 'layuiadmin/' %}' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'console_global']);
+    var layer = layui.layer;
+    var date_list = [];
+    var android_data_list = [];
+    var ios_data_list = [];
+    var hour_android_list = [];
+    var hour_ios_list = [];
+    var hour_sum_data = [];
+    var media_name = "所有媒体";
+    var report_type = "游戏";
+    var report_type_post = "game";
+    $('.report_type').click(function () {
+        report_type = ($(this).text()).trim();
+        layer.alert("当前类型为:" + report_type, {icon: 1});
+        if (report_type === "游戏") {
+            report_type_post = "game"
+        } else if (report_type === "应用") {
+            report_type_post = "app"
+        } else {
+            report_type_post = 'brand'
+        }
+    });
+    $('.layui-col-xs3').click(function () {
+        media_name = ($(this).text()).trim();
+        $.ajax({
+            url: "{% url 'global' %}",
+            data: {
+                "media_name": media_name,
+                'report_type': report_type_post,
+                'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()
+            },
+            cache: "false",
+            async: "true",
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                //data是json类型
+                date_list = [];
+                sum_data = [];
+                android_data_list = [];
+                ios_data_list = [];
+                hour_android_list = [];
+                hour_ios_list = [];
+                hour_sum_data = [];
+                var result = data['result'];
+                date_list = result['date_list'];
+                sum_data = result['sum_data'];
+                android_data_list = result['android_data_list'];
+                ios_data_list = result['ios_data_list'];
+                hour_android_list = result['hour_android_list'];
+                hour_ios_list = result['hour_ios_list'];
+                hour_sum_data = result['hour_sum_data'];
+                aj();
+            },
+            error: function () {
+                alert("服务器端异常!请稍后再试");
+            },
+        });
+
+    });
+
+</script>
+
+<script>
+    var data ={{ data|safe }};
+    var date_list = data['date_list'];
+    var android_data_list = data['android_data_list'];
+    var ios_data_list = data['ios_data_list'];
+    var sum_data = data['sum_data'];
+
+    var hour_android_list ={{ hour_android_list }};
+    var hour_ios_list ={{ hour_ios_list }};
+    var hour_sum_data ={{ hour_sum_data }};
+</script>
+
+</body>
+</html>
+

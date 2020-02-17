@@ -97,8 +97,12 @@
                 <cite>主页</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd data-name="console" class="layui-this">
-                  <a lay-href="{% url 'fx' %}">媒体洞察</a>
+                <dd data-name="grid">
+                  <a href="javascript:;">媒体洞察</a>
+                    <dl class="layui-nav-child">
+                        <dd data-name="list"><a lay-href="{% url 'fx' %}">国内</a></dd>
+                        <dd data-name="list"><a lay-href="{% url 'global' %}">国外</a></dd>
+                    </dl>
                 </dd>
                 <dd data-name="console">
                   <a lay-href="{% url 'data' %}">爬虫优化</a>
