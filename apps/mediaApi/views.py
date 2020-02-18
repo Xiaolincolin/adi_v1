@@ -44,7 +44,7 @@ class ApiView(View):
                 redis_handle.lpush("pyq_ios", md5_id)
                 time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 key = '_'.join(str(time_now).split())
-                redis_handle.set("log:"+str(key), str(md5_id))
+                redis_handle.set("log:" + str(key), str(md5_id))
             return JsonResponse(json_data, safe=True)
         else:
             return JsonResponse({"msg": "fail"}, safe=True)
@@ -174,7 +174,7 @@ class MediaInfo(View):
             return JsonResponse(json_data, content_type="application/json", safe=True)
 
     def post(self, request):
-        pass
+        return JsonResponse({"msg": "errro request"})
 
     def get_all_data(self, user):
         json_data = {}
@@ -243,8 +243,11 @@ class MediaInfo(View):
         pyq_list = self.process_pyq(tmp, account_list, defaultPrice)
         ks = self.get_rank_ks(begin, end)
         ks_list = self.process_ks(ks, begin, end)
+        gzh = self.get_rank_gzh(begin,end)
+        gzh_list = self.process_gzh(gzh,begin,end)
         data["1"] = pyq_list
         data["3"] = ks_list
+        data["2"] = gzh_list
         result["stats"] = "0"
         result["msg"] = "成功"
         result["data"] = data
@@ -389,6 +392,88 @@ class MediaInfo(View):
                 tmp_json["vaildCount"] = counts
                 pyq_list.append(tmp_json)
             return pyq_list
+        else:
+            return []
+
+    def get_rank_gzh(self,begin,end):
+        gzh_account_dict = {}
+        data = []
+        sql = "SELECT account,counts FROM mediaInfo_day where mediaUUID=2 and days BETWEEN '{A}' and '{B}'"
+        sql = sql.format(A=begin, B=end)
+        result = self.select_data(sql)
+        if result:
+            result = list(result)
+            for item in result:
+                account = item[0]
+                counts = item[1]
+                value = gzh_account_dict.get(account, "")
+                if counts:
+                    counts = int(counts)
+                if value:
+                    if counts >= 40:
+                        value += 1
+                        gzh_account_dict[account] = value
+                    else:
+                        gzh_account_dict[account] = value
+                else:
+                    if counts >= 40:
+                        gzh_account_dict[account] = 1
+                    else:
+                        gzh_account_dict[account] = 0
+        if gzh_account_dict:
+            data = sorted(gzh_account_dict.items(), key=lambda x: x[1], reverse=True)
+        return data
+
+    def process_gzh(self,gzh,begin,end):
+        gzh_sum = "SELECT sum(counts) FROM mediaInfo_day where mediaUUID=2 and account='{phone}' and days BETWEEN '{A}' and '{B}'"
+        sql_name = "SELECT realName FROM wechat_res where phone='{phone}'"
+        gzh_list = []
+        if gzh:
+            for item in gzh:
+                gzh_json = {}
+                account = item[0]
+                days = item[1]
+                gzh_sql = gzh_sum.format(phone=account, A=begin, B=end)
+                sum_count = self.select_data(gzh_sql)
+                if sum_count:
+                    sum_count = list(sum_count)
+                    sum_count = sum_count[0]
+                    if sum_count:
+                        sum_count = sum_count[0]
+                        if sum_count:
+                            sum_count = int(sum_count)
+                        else:
+                            sum_count = 0
+                else:
+                    sum_count = 0
+                if days:
+                    days = int(days)
+                else:
+                    days = 0
+                sql = sql_name.format(phone=account)
+                name = self.select_data(sql)
+                if not name:
+                    name = ""
+                else:
+                    name = name[0]
+                    if name:
+                        name = name[0]
+                        if name:
+                            name = "**" + str(name[-1])
+                        else:
+                            name = ""
+                    else:
+                        name = ""
+                if account and len(account) == 11:
+                    account = str(account[0:3]) + "xxxx" + str(account[-3:])
+                income = days * 10
+                gzh_json["phone"] = account
+                gzh_json["realName"] = name
+                gzh_json["income"] = income
+                gzh_json["submitCount"] = sum_count
+                gzh_json["vaildCount"] = sum_count
+                gzh_list.append(gzh_json)
+            return gzh_list
         else:
             return []
 
