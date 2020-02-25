@@ -17,7 +17,9 @@ from DBUtils.PooledDB import PooledDB
 pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.aliyuncs.com', user='adi',
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
-conn = pool.connection()
+
+
+# conn = pool.connection()
 
 
 class ApiView(View):
@@ -243,8 +245,8 @@ class MediaInfo(View):
         pyq_list = self.process_pyq(tmp, account_list, defaultPrice)
         ks = self.get_rank_ks(begin, end)
         ks_list = self.process_ks(ks, begin, end)
-        gzh = self.get_rank_gzh(begin,end)
-        gzh_list = self.process_gzh(gzh,begin,end)
+        gzh = self.get_rank_gzh(begin, end)
+        gzh_list = self.process_gzh(gzh, begin, end)
         data["1"] = pyq_list
         data["3"] = ks_list
         data["2"] = gzh_list
@@ -313,6 +315,7 @@ class MediaInfo(View):
                 ks_json = {}
                 account = item[0]
                 days = item[1]
+                ks_result = self.ks_tj(account, begin, end)
                 ks_sql = ks_sum.format(phone=account, A=begin, B=end)
                 sum_count = self.select_data(ks_sql)
                 if sum_count:
@@ -343,11 +346,22 @@ class MediaInfo(View):
                 if account and len(account) == 11:
                     account = str(account[0:3]) + "xxxx" + str(account[-3:])
                 income = days * 10
+                only = ""
+                gather = ""
+                all_ratio = ""
+                if ks_result:
+                    # print(ks_result)
+                    only = ks_result.get("only", "")
+                    gather = ks_result.get("gather", "")
+                    all_ratio = ks_result.get("all_ratio", "")
+
                 ks_json["phone"] = account
                 ks_json["realName"] = name
                 ks_json["income"] = income
                 ks_json["submitCount"] = sum_count
-                ks_json["vaildCount"] = sum_count
+                ks_json["vaildCount"] = gather
+                ks_json["only"] = only
+                ks_json["all_ratio"] = all_ratio
                 ks_list.append(ks_json)
             return ks_list
         else:
@@ -395,7 +409,7 @@ class MediaInfo(View):
         else:
             return []
 
-    def get_rank_gzh(self,begin,end):
+    def get_rank_gzh(self, begin, end):
         gzh_account_dict = {}
         data = []
         sql = "SELECT account,counts FROM mediaInfo_day where mediaUUID=2 and days BETWEEN '{A}' and '{B}'"
@@ -424,7 +438,7 @@ class MediaInfo(View):
             data = sorted(gzh_account_dict.items(), key=lambda x: x[1], reverse=True)
         return data
 
-    def process_gzh(self,gzh,begin,end):
+    def process_gzh(self, gzh, begin, end):
         gzh_sum = "SELECT sum(counts) FROM mediaInfo_day where mediaUUID=2 and account='{phone}' and days BETWEEN '{A}' and '{B}'"
         sql_name = "SELECT realName FROM wechat_res where phone='{phone}'"
         gzh_list = []
@@ -587,3 +601,47 @@ class MediaInfo(View):
         cur.execute(sql)
         raw = cur.fetchall()
         return raw
+
+    def ks_tj(self, phone, begin, end):
+        all_data_sql = "SELECT fp FROM ks_account_ext where `day` BETWEEN '%s' and '%s'" % (begin, end)
+        all_data_tuple = self.select_data(all_data_sql)
+        all_data = []
+        if all_data_tuple:
+            for item in list(all_data_tuple):
+                all_data.append(item[0])
+            len_data = len(list(all_data))
+        else:
+            len_data = 0
+        cout_dict = {}
+        if phone:
+            tmp_list = []
+            only = 0
+
+            sql_amount = "SELECT fp FROM ks_account_ext where `day` BETWEEN '%s' and '%s' and phone='%s'" % (
+                begin, end, phone)
+            tmp_data_tuple = self.select_data(sql_amount)
+            if tmp_data_tuple:
+                for per in list(tmp_data_tuple):
+                    tmp_list.append(per[0])
+                len_tmp_data = len(list(tmp_list))
+                if len_data:
+                    all_ratio = round(len_tmp_data / len_data, 2)
+                else:
+                    all_ratio = 1
+                cout_dict['all_ratio'] = all_ratio
+                for t in list(tmp_list):
+                    counts = all_data.count(t)
+                    if counts == 1:
+                        only += 1
+                cout_dict["only"] = only
+                cout_dict["gather"] = len_tmp_data
+                cout_dict["game_ad_count"] = 0
+                cout_dict["app_ad_count"] = 0
+        return cout_dict
+
+class KsRatio(View):
+    def get(self, request):
+        return JsonResponse({"msg": "success"})
+
+    def post(self, request):
+        return JsonResponse({"msg": "fail"})
