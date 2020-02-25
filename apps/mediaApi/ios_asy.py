@@ -9,7 +9,6 @@ pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
 
-
 pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
                  password='Adi_mysql',
                  database='adi', charset='utf8')
@@ -45,7 +44,42 @@ class mediaInfo_day:
         self.end_time = end
 
     def run(self):
+        self.ks_amount()
         self.asy_day()
+
+    def ks_amount(self):
+        # for i in list(range(4,30)):
+        #     print(str(i)+"天")
+        # days = (datetime.date.today() + datetime.timedelta(days=-i)).strftime("%Y-%m-%d")
+        days = (datetime.date.today()).strftime("%Y-%m-%d")
+        times = (datetime.datetime.now()+datetime.timedelta(hours=-1)).strftime("%Y-%m-%d %H:%M:%S")
+
+        ks_sql = "SELECT fp,account,phone,add_time FROM ks_account_ext where `day`='{days}' and add_time>'{add_time}'"
+        ks_sql = ks_sql.format(days=days,add_time=times)
+        # ks_sql = "SELECT fp,account,phone,add_time FROM ks_account_ext where `day`='{days}'"
+        # ks_sql = ks_sql.format(days=days)
+        sql = ks_sql
+        data = self.select_adi(sql)
+        print(len(list(data)))
+        if data:
+            for item in list(data):
+                fp = item[0]
+                account = item[1]
+                phone = item[2]
+                add_time = item[3]
+
+                select_sql = "SELECT fp FROM ks_account_ext where fp='{fp}' and day='{days}' and add_time='{add_time}'"
+                select_sql = select_sql.format(fp=fp, days=days, add_time=add_time)
+                # select_sql = "SELECT fp FROM ks_account_ext where fp='{fp}' and `day`='{days}'"
+                # select_sql = select_sql.format(fp=fp, days=days)
+
+                select_msg = self.select_local(select_sql)
+                if not select_msg:
+                    insert_sql = "INSERT into ks_account_ext(fp,account,`day`,phone,add_time,update_time) VALUES(%s,%s,%s,%s,%s,NOW())"
+                    insert_param = [fp, account,days, phone, add_time]
+                    msg = self.excute_local_param(insert_sql, insert_param)
+                    if msg:
+                        print(self.get_time_now(), fp, phone, " 插入成功！")
 
     def asy_day(self):
         for media_info in media_list:
@@ -89,7 +123,6 @@ class mediaInfo_day:
                                 count = item[1]
                                 print(count)
                                 ks_id = ""
-
                             select_sql = "SELECT counts FROM mediaInfo_day where account='{act}' and ks_id='{ks_id}' and days='{days}' and mediaUUID='{mid}';"
                             select_sql = select_sql.format(act=account, ks_id=ks_id, days=days, mid=mid)
                             select_msg = self.select_local(select_sql)
