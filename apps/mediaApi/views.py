@@ -363,6 +363,8 @@ class MediaInfo(View):
                 ks_json["only"] = only
                 ks_json["all_ratio"] = all_ratio
                 ks_list.append(ks_json)
+            if ks_list:
+                ks_list = sorted(ks_list, key=lambda keys: keys['submitCount'], reverse=True)
             return ks_list
         else:
             return []
@@ -405,6 +407,8 @@ class MediaInfo(View):
                 tmp_json["submitCount"] = counts
                 tmp_json["vaildCount"] = counts
                 pyq_list.append(tmp_json)
+            if pyq_list:
+                pyq_list = sorted(pyq_list, key=lambda keys: keys['submitCount'], reverse=True)
             return pyq_list
         else:
             return []
@@ -443,6 +447,7 @@ class MediaInfo(View):
         sql_name = "SELECT realName FROM wechat_res where phone='{phone}'"
         gzh_list = []
         if gzh:
+            # print(gzh)
             for item in gzh:
                 gzh_json = {}
                 account = item[0]
@@ -487,6 +492,8 @@ class MediaInfo(View):
                 gzh_json["submitCount"] = sum_count
                 gzh_json["vaildCount"] = sum_count
                 gzh_list.append(gzh_json)
+            if gzh_list:
+                gzh_list = sorted(gzh_list, key=lambda keys: keys['submitCount'], reverse=True)
             return gzh_list
         else:
             return []
@@ -638,6 +645,7 @@ class MediaInfo(View):
                 cout_dict["game_ad_count"] = 0
                 cout_dict["app_ad_count"] = 0
         return cout_dict
+
 
 class KsRatio(View):
     def get(self, request):
