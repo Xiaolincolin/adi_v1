@@ -98,7 +98,7 @@ class mediaInfo_day:
                     ks_sql = ks_sql.format(days=days)
                     sql = ks_sql
                 else:
-                    pyq_sql = "SELECT account, COUNT(DISTINCT(fp)) as amount from wechat_account_ext WHERE type_id=1 and source_id = '{source_id}' and `day` = '{day}' GROUP BY account"
+                    pyq_sql = "SELECT account, COUNT(DISTINCT(fp)) as amount from wechat_account_ext WHERE type_id=0 and source_id = '{source_id}' and `day` = '{day}' GROUP BY account"
                     pyq_sql = pyq_sql.format(day=days, source_id=source_id)
                     sql = pyq_sql
                     flag = 1
