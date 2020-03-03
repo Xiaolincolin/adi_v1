@@ -646,10 +646,3 @@ class MediaInfo(View):
                 cout_dict["app_ad_count"] = 0
         return cout_dict
 
-
-class KsRatio(View):
-    def get(self, request):
-        return JsonResponse({"msg": "success"})
-
-    def post(self, request):
-        return JsonResponse({"msg": "fail"})
