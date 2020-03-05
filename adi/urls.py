@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from apps.judge.views import ClassifyView, FormView, StatisticsView, VersionView, StatisticsGlobalView
-from apps.wechat.views import WechatView
+from apps.wechat.views import WechatView, GzhDecrypt
 from apps.users.views import LoginView, LogoutView, TmpView
 from django.conf.urls import url
 from apps.mediaApi.views import ApiView,MediaInfo
@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^ver/$', VersionView.as_view(), name="ver"),
     url(r'^data_api$', csrf_exempt(ApiView.as_view()), name="api"),
     url(r'^mediaInfo$', csrf_exempt(MediaInfo.as_view()), name="api"),
+    url(r'^decrypt$', csrf_exempt(GzhDecrypt.as_view()), name="gzh"),
 ]
