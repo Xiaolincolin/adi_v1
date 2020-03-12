@@ -206,7 +206,9 @@ if __name__ == '__main__':
                 else:
                     old_version = bytes.decode(old_version)
                     if str(old_version) != str(releaseVer):
-                        update_sql = "UPDATE myapp set version='{version}',releaseDate='{releaseDate}',update_time=NOW() where appid='{appid}'"
+                        print(str(old_version))
+                        print(str(releaseVer))
+                        update_sql = "UPDATE myapp_ios set version='{version}',release_time='{releaseDate}',update_time=NOW() where appid='{appid}'"
                         update_sql = update_sql.format(version=releaseVer, releaseDate=releaseDate, appid=appid)
                         update_result = myappios.excute_local(update_sql)
                         if update_result:
