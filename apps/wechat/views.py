@@ -82,3 +82,7 @@ class WechatView(View):
             data_list.append(tmp)
 
         return data_list
+
+class GzhDecrypt(View):
+    def get(self,request):
+        return JsonResponse({"msg":"ok"})
