@@ -106,6 +106,7 @@ media_dict = {
     "车来了": "91",
     "全民小视频": "92",
     "芒果TV": "93",
+    "QQ-小程序":"94"
 
 }
 media_dict_global = {
@@ -284,6 +285,8 @@ class StatisticsView(View):
                     media_name = "天天快报"
                 if media_name == "bilibili":
                     media_name = "哔哩哔哩"
+                if media_name == "PP视频":
+                    media_name = "pptv"
                 end_days = str(datetime.date.today())
                 start_days = (datetime.date.today() + datetime.timedelta(days=-30)).strftime("%Y-%m-%d")
                 sql = ""
