@@ -20,7 +20,16 @@ pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
 
 
 # conn = pool.connection()
+divce_id = {
+    "_a2S8_aq28_qa28qiiBzaga92ugvhvtHjuXn8jPqBN0_iv8WoiSdiYuYvfgquB8g_l2h8luWSajBus8PYOvpIgajS8oIPBuflhvh": "KS002",
+    "_a2S8_aq28_qa28q8ivh8_uJvulxhHucYiXT80u4vI08u2iqzuvHilitSigbu2a4Y02aigiRv8_VOXtzliv_N_ixv8zNPSixgC26": "KS003",
+    "_a2S8_aq28_qa28qiiHSt_OzHtgpCBuO0uXf80uMvNY6P28Eoi2ougiIB8lSP28Q_l2haj8SBtlqOsa9_8vtIgiKSazk8HutgC-6": "KS004",
+    "_a2S8_aq28_qa28q8aSR808PB8jhh2tH0iXt8gasvN0Y82fqo8Hkul8tHugha2ud_0H9a_8A2u0eOs89_PvCN_i728zIPvivjCvy": "KS005",
+    "_a2S8_aq28_qa28qiavlagP_H8gFhHfY_uXfiluovN08iHuKoa-oiY8hSilYa2u7Y0Bz8Yip2f0ouXi0_iS3Ng8F2azZ8Sihgh-z": "KS006",
+    "_a2S8_aq28_qa28q8uSSt_iIvulxh284guXn80aKvN0IO2uNoavzi0iJ2u_38HfHY0vh8_iR28gcus80luv2I_8x28oNi2fgghBY": "KS007",
+    "_a2S8_aq28_qa28qii2za0uI-alxhvtDguXT8_auSNj8uHiOo8SJu0iM280euSat_0v0fgPWH80Lus8__avFIguuH8oIOHuTjh-z": "xiaoxia_2"
 
+}
 
 class ApiView(View):
     def get(self, request):
@@ -174,9 +183,53 @@ class MediaInfo(View):
         elif str(id) == "3":
             json_data = self.adRecordDetail(user, begin, end, index, size, mediaUUID)
             return JsonResponse(json_data, content_type="application/json", safe=True)
+        elif str(id) == "4":
+            json_data = self.get_baidu(user,begin,end)
+            return JsonResponse(json_data, content_type="application/json", safe=True)
 
     def post(self, request):
         return JsonResponse({"msg": "errro request"})
+
+    def get_baidu(self, user, begin, end):
+        result = {}
+        if user and user == '15210124311':
+            tmp_list = []
+            for dev_id, name in divce_id.items():
+                amount = 0
+                game_amount = 0
+                app_amount = 0
+                select_sql = "SELECT counts,game,app FROM material_baidu where device_id='{dev_id}' and `days` between '{A}' and '{B}'".format(
+                    dev_id=dev_id, A=begin, B=end)
+                result_data = self.select_data(select_sql)
+                if result_data:
+                    result_data = list(result_data)
+                    for per in result_data:
+                        tmp_dict = {}
+                        per = list(per)
+                        counts = per[0]
+                        game = per[1]
+                        app = per[2]
+                        counts = int(counts)
+                        game = int(game)
+                        app = int(app)
+                        amount += counts
+                        game_amount += game
+                        app_amount += app
+                        tmp_dict["submitCount"] = amount
+                        tmp_dict["game"] = game_amount
+                        tmp_dict["app"] = app_amount
+                        tmp_dict["phone"] = name
+                        tmp_list.append(tmp_dict)
+            result["stats"] = "0"
+            result["msg"] = "成功"
+            result["data"] = tmp_list
+            return result
+
+        else:
+            result["stats"] = "4"
+            result["msg"] = "该用户没有权限访问"
+            result["data"] = []
+            return result
 
     def get_all_data(self, user):
         json_data = {}
