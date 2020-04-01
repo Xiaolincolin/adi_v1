@@ -701,4 +701,3 @@ class MediaInfo(View):
                 cout_dict["app_ad_count"] = 0
         return cout_dict
 
->>>>>>> e484ac63ee7a0aa258b691204e550e11ccf69395
