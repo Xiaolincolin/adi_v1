@@ -219,10 +219,13 @@ class MediaInfo(View):
                         tmp_dict["game"] = game_amount
                         tmp_dict["app"] = app_amount
                         tmp_dict["phone"] = name
+                        tmp_dict["mediaUUID"] = 4
                         tmp_list.append(tmp_dict)
+            data = {}
+            data["4"] = tmp_list
             result["stats"] = "0"
             result["msg"] = "成功"
-            result["data"] = tmp_list
+            result["data"] = data
             return result
 
         else:
