@@ -5,7 +5,6 @@ import datetime
 #
 # print(yesterday)
 # print(today)
-import turtle as T
 import random
 import time
 
@@ -50,7 +49,6 @@ class Baidu:
             app_sql = "SELECT DISTINCT(n.material_id) FROM material_device as d,report_app_new as n where d.material_id=n.material_id and  d.device_id='{dev_id}' and d.`day`='{dy}'".format(
                 dev_id=dev_id, dy=ts)
             sum_result = self.select_data(sum_select_sql)
-            print(sum_result)
             if sum_result:
                 sum_result = list(sum_result)
                 tmp_all = len(sum_result)
