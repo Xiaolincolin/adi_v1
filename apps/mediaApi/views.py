@@ -1,3 +1,4 @@
+import datetime
 import json
 import math
 import time
@@ -17,7 +18,6 @@ pool = PooledDB(pymysql, 10, host='rm-hp3mz89q1ca33b2e37o.mysql.huhehaote.rds.al
                 password='Adi_mysql',
                 database='adinsights_v3', charset='utf8')
 
-
 # conn = pool.connection()
 divce_id = {
     "_a2S8_aq28_qa28qiiBzaga92ugvhvtHjuXn8jPqBN0_iv8WoiSdiYuYvfgquB8g_l2h8luWSajBus8PYOvpIgajS8oIPBuflhvh": "KS002",
@@ -29,6 +29,7 @@ divce_id = {
     "_a2S8_aq28_qa28qii2za0uI-alxhvtDguXT8_auSNj8uHiOo8SJu0iM280euSat_0v0fgPWH80Lus8__avFIguuH8oIOHuTjh-z": "xiaoxia_2"
 
 }
+
 
 class ApiView(View):
     def get(self, request):
@@ -182,56 +183,64 @@ class MediaInfo(View):
         elif str(id) == "3":
             json_data = self.adRecordDetail(user, begin, end, index, size, mediaUUID)
             return JsonResponse(json_data, content_type="application/json", safe=True)
-        elif str(id) == "4":
-            json_data = self.get_baidu(user,begin,end)
-            return JsonResponse(json_data, content_type="application/json", safe=True)
 
     def post(self, request):
         return JsonResponse({"msg": "errro request"})
 
-    def get_baidu(self, user, begin, end):
+    def get_baidu(self, begin, end):
         result = {}
-        if user and user == '15210124311':
-            tmp_list = []
-            for dev_id, name in divce_id.items():
-                amount = 0
-                game_amount = 0
-                app_amount = 0
-                select_sql = "SELECT counts,game,app FROM material_baidu where device_id='{dev_id}' and `days` between '{A}' and '{B}'".format(
-                    dev_id=dev_id, A=begin, B=end)
-                result_data = self.select_data(select_sql)
-                if result_data:
-                    result_data = list(result_data)
-                    for per in result_data:
-                        tmp_dict = {}
-                        per = list(per)
-                        counts = per[0]
-                        game = per[1]
-                        app = per[2]
-                        counts = int(counts)
-                        game = int(game)
-                        app = int(app)
-                        amount += counts
-                        game_amount += game
-                        app_amount += app
+        tmp_list = []
+        for dev_id, name in divce_id.items():
+            select_sql = "SELECT counts,game,app,`only` FROM material_baidu where device_id='{dev_id}' and `days` between '{A}' and '{B}'".format(
+                dev_id=dev_id, A=begin, B=end)
+            result_data = self.select_data(select_sql)
+            if result_data:
+                result_data = list(result_data)
+                phone_key = {}
+                for per in result_data:
+                    amount = 0
+                    game_amount = 0
+                    app_amount = 0
+                    only_amount = 0
+                    tmp_dict = {}
+                    per = list(per)
+                    counts = per[0]
+                    game = per[1]
+                    app = per[2]
+                    only = per[3]
+                    counts = int(counts)
+                    game = int(game)
+                    app = int(app)
+                    only = int(only)
+                    amount += counts
+                    game_amount += game
+                    app_amount += app
+                    only_amount += only
+                    values = phone_key.get(name)
+                    if values:
+                        submitCount = values.get("submitCount")
+                        gm = values.get("game")
+                        ap = values.get("app")
+                        amount += submitCount
+                        game_amount += gm
+                        app_amount += ap
+                        values['submitCount'] = amount
+                        values['game'] = game_amount
+                        values['app'] = app_amount
+                        values["phone"] = name
+                        values["only"] = only_amount
+                        phone_key[name] = values
+
+                    else:
                         tmp_dict["submitCount"] = amount
                         tmp_dict["game"] = game_amount
                         tmp_dict["app"] = app_amount
                         tmp_dict["phone"] = name
-                        tmp_dict["mediaUUID"] = 4
-                        tmp_list.append(tmp_dict)
-            data = {}
-            data["4"] = tmp_list
-            result["stats"] = "0"
-            result["msg"] = "成功"
-            result["data"] = data
-            return result
-
-        else:
-            result["stats"] = "4"
-            result["msg"] = "该用户没有权限访问"
-            result["data"] = []
-            return result
+                        tmp_dict["only"] = only_amount
+                        phone_key[name] = tmp_dict
+                for k, v in phone_key.items():
+                    tmp_list.append(v)
+        return tmp_list
 
     def get_all_data(self, user):
         json_data = {}
@@ -302,9 +311,11 @@ class MediaInfo(View):
         ks_list = self.process_ks(ks, begin, end)
         gzh = self.get_rank_gzh(begin, end)
         gzh_list = self.process_gzh(gzh, begin, end)
+        baidu_list = self.get_baidu(begin, end)
         data["1"] = pyq_list
         data["3"] = ks_list
         data["2"] = gzh_list
+        data["4"] = baidu_list
         result["stats"] = "0"
         result["msg"] = "成功"
         result["data"] = data
@@ -700,4 +711,3 @@ class MediaInfo(View):
                 cout_dict["game_ad_count"] = 0
                 cout_dict["app_ad_count"] = 0
         return cout_dict
-
