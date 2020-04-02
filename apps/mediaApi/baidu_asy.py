@@ -25,7 +25,8 @@ divce_main = {
     "_a2S8_aq28_qa28q8aSR808PB8jhh2tH0iXt8gasvN0Y82fqo8Hkul8tHugha2ud_0H9a_8A2u0eOs89_PvCN_i728zIPvivjCvy": "KS005",
     "_a2S8_aq28_qa28qiavlagP_H8gFhHfY_uXfiluovN08iHuKoa-oiY8hSilYa2u7Y0Bz8Yip2f0ouXi0_iS3Ng8F2azZ8Sihgh-z": "KS006",
     "_a2S8_aq28_qa28q8uSSt_iIvulxh284guXn80aKvN0IO2uNoavzi0iJ2u_38HfHY0vh8_iR28gcus80luv2I_8x28oNi2fgghBY": "KS007",
-    "_a2S8_aq28_qa28qii2za0uI-alxhvtDguXT8_auSNj8uHiOo8SJu0iM280euSat_0v0fgPWH80Lus8__avFIguuH8oIOHuTjh-z": "xiaoxia_2"
+    "_a2S8_aq28_qa28qii2za0uI-alxhvtDguXT8_auSNj8uHiOo8SJu0iM280euSat_0v0fgPWH80Lus8__avFIguuH8oIOHuTjh-z": "xiaoxia_2",
+    "_a2S8_aq28_qa28qia2p8Y8rHig_C-iNgiXf808dSIYa82iKoa2yu_8avagSuvum_0S0a0uKSa0ZisuP_iS1NgawHazZivu1lCH6": "iphonex"
 
 }
 
@@ -67,13 +68,13 @@ class Baidu:
                 tmp_app = len(app_result)
                 tmp_map["app"] = tmp_app
             dev_id_dict[dev_id] = tmp_map
-        for k,v in dev_id_dict.items():
+        for k, v in dev_id_dict.items():
             phone = k
             only = 0
-            sum_amount = v.get("amount",0)
-            sum_game = v.get("game",0)
-            sum_app = v.get("app",0)
-            fps = v.get("fp",0)
+            sum_amount = v.get("amount", 0)
+            sum_game = v.get("game", 0)
+            sum_app = v.get("app", 0)
+            fps = v.get("fp", 0)
             for fp in fps:
                 counts = fp_list.count(list(fp)[0])
                 if counts == 1:
@@ -85,7 +86,7 @@ class Baidu:
             local_result = self.select_local(select_local)
             if local_result:
                 update_sql = "update material_baidu set counts='{ct}',game='{game}',app='{app}',`only`='{only}',update_time=NOW() where device_id='{dev_id}'".format(
-                    dev_id=phone, ct=sum_amount, game=sum_game, app=sum_app,only=only
+                    dev_id=phone, ct=sum_amount, game=sum_game, app=sum_app, only=only
                 )
                 info = self.select_local(update_sql)
                 if info:
@@ -94,7 +95,7 @@ class Baidu:
                     print(divce_main[phone] + "更新失败")
             else:
                 insert_sql = "insert into material_baidu(device_id,counts,game,app,`only`,days,add_time) values (%s,%s,%s,%s,%s,%s,now())"
-                insert_info = self.insert_local(insert_sql, [phone, sum_amount, sum_game, sum_app,only, ts])
+                insert_info = self.insert_local(insert_sql, [phone, sum_amount, sum_game, sum_app, only, ts])
                 if insert_info:
                     if insert_info:
                         print(divce_main[phone] + "插入成功")
