@@ -240,7 +240,11 @@ class MediaInfo(View):
                         phone_key[name] = tmp_dict
                 for k, v in phone_key.items():
                     tmp_list.append(v)
-        return tmp_list
+        if tmp_list:
+            bd_list = sorted(tmp_list, key=lambda keys: keys['submitCount'], reverse=True)
+        else:
+            bd_list = []
+        return bd_list
 
     def get_all_data(self, user):
         json_data = {}
