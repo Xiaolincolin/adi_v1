@@ -246,7 +246,7 @@ class MediaInfo(View):
         json_data = {}
         tmp = []
 
-        for i in range(1, 4):
+        for i in range(1, 5):
             flag = 0
             sql = "SELECT appName,bundleId,appIcon,defaultPrice,income,mediaUUID,SUM(counts) FROM mediaInfo_day where account='{user}' and mediaUUID='{mid}' GROUP BY appName"
             sql = sql.format(user=user, mid=str(i))
@@ -266,7 +266,7 @@ class MediaInfo(View):
                     mid = result[5]
                     if count:
                         count = int(count)
-                    if str(mid) != "1":
+                    if str(mid) != "1" and str(mid) != "4":
                         sql_income = "SELECT counts FROM mediaInfo_day where account='{account}' and mediaUUID='{mid}'"
                         sql_income = sql_income.format(account=user, mid=str(mid))
                         income_result = self.select_data(sql_income)
