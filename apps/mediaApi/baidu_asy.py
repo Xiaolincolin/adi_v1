@@ -26,7 +26,8 @@ divce_main = {
     "_a2S8_aq28_qa28qiavlagP_H8gFhHfY_uXfiluovN08iHuKoa-oiY8hSilYa2u7Y0Bz8Yip2f0ouXi0_iS3Ng8F2azZ8Sihgh-z": "KS006",
     "_a2S8_aq28_qa28q8uSSt_iIvulxh284guXn80aKvN0IO2uNoavzi0iJ2u_38HfHY0vh8_iR28gcus80luv2I_8x28oNi2fgghBY": "KS007",
     "_a2S8_aq28_qa28qii2za0uI-alxhvtDguXT8_auSNj8uHiOo8SJu0iM280euSat_0v0fgPWH80Lus8__avFIguuH8oIOHuTjh-z": "xiaoxia_2",
-    "_a2S8_aq28_qa28qia2p8Y8rHig_C-iNgiXf808dSIYa82iKoa2yu_8avagSuvum_0S0a0uKSa0ZisuP_iS1NgawHazZivu1lCH6": "iphonex"
+    "_a2S8_aq28_qa28qia2p8Y8rHig_C-iNgiXf808dSIYa82iKoa2yu_8avagSuvum_0S0a0uKSa0ZisuP_iS1NgawHazZivu1lCH6": "iphonex",
+    "_a2S8_aq28_qa28q8uv18gahvugfh2u50OXf8j8hSNlzivaQoavPulPzSf_OPS8h00H0tluIStgCiX8y_8v1Ig8GvazIPviTgh28": "new_01"
 
 }
 
