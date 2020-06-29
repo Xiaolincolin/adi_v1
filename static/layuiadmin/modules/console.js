@@ -224,11 +224,10 @@ layui.define(function (e) {
                             n[0].series[1].data = android_data_list;
                             n[0].series[2].data = ios_data_list;
                         }
-                        n[2].title.text = media_name + "小时趋势图" + "(" + report_type + ")";
-                        n[2].series[0].data = hour_sum_data;
-                        n[2].series[1].data = hour_ios_list;
-                        n[2].series[2].data = hour_android_list;
-
+                        n[1].title.text = media_name + "小时趋势图" + "(" + report_type + ")";
+                        n[1].series[0].data = hour_sum_data;
+                        n[1].series[1].data = hour_ios_list;
+                        n[1].series[2].data = hour_android_list;
 
                         l[e].setOption(n[e], true),
                             t.resize(function () {
