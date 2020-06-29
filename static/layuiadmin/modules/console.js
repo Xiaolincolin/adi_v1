@@ -259,7 +259,7 @@ layui.define(function (e) {
                 window.aj = function () {
                     o(0);
                     o(1);
-                    o(2);
+                    // o(2);
                 };
             }),
         layui.use("table",
