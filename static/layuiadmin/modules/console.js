@@ -95,50 +95,6 @@ layui.define(function (e) {
                         },
                         {
                             title: {
-                                text: "访客浏览器分布",
-                                x: "center",
-                                textStyle: {
-                                    fontSize: 14
-                                }
-                            },
-                            tooltip: {
-                                trigger: "item",
-                                formatter: "{a} <br/>{b} : {c} ({d}%)"
-                            },
-                            legend: {
-                                orient: "vertical",
-                                x: "left",
-                                data: ["Chrome", "Firefox", "IE 8.0", "Safari", "其它浏览器"]
-                            },
-                            series: [{
-                                name: "访问来源",
-                                type: "pie",
-                                radius: "55%",
-                                center: ["50%", "50%"],
-                                data: [{
-                                    value: 9052,
-                                    name: "Chrome"
-                                },
-                                    {
-                                        value: 1610,
-                                        name: "Firefox"
-                                    },
-                                    {
-                                        value: 3200,
-                                        name: "IE 8.0"
-                                    },
-                                    {
-                                        value: 535,
-                                        name: "Safari"
-                                    },
-                                    {
-                                        value: 1700,
-                                        name: "其它浏览器"
-                                    }]
-                            }]
-                        },
-                        {
-                            title: {
                                 text: '',
                                 x: 'center',
                                 y: 0,
