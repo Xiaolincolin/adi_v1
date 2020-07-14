@@ -7,8 +7,8 @@ from DBUtils.PooledDB import PooledDB
 rdp_local = redis.ConnectionPool(host='127.0.0.1', port=6379, db=7)
 rdc_local = redis.StrictRedis(connection_pool=rdp_local)
 
-pool = PooledDB(pymysql, 10, host='35.241.64.108', user='adi_mysql',
-                password='gengjiahong',
+pool = PooledDB(pymysql, 10, host='hk-cdb-45lbur8h.sql.tencentcdb.com', user='root',port=63833,
+                password='Adi_123456',
                 database='adinsights', charset='utf8')
 
 media_name = {

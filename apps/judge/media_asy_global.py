@@ -5,8 +5,8 @@ import pymysql
 
 from DBUtils.PooledDB import PooledDB
 
-pool = PooledDB(pymysql, 10, host='35.241.64.108', user='adi_mysql',
-                password='gengjiahong',
+pool = PooledDB(pymysql, 10, host='hk-cdb-45lbur8h.sql.tencentcdb.com', user='root',port=63833,
+                password='Adi_123456',
                 database='adinsights', charset='utf8')
 
 pool1 = PooledDB(pymysql, 10, host='192.168.168.83', port=3306, user='root',
